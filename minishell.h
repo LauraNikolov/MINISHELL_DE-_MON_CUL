@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 14:41:19 by lauranicolo       #+#    #+#             */
-/*   Updated: 2024/07/28 20:26:05 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 00:51:17 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ t_cmd	*create_cmd_node(t_redir *redir, char **cmd, char **exp_code);
 char	**ft_strdup_array(char **cmd);
 int		ft_str_is_alpha(char *s);
 int		ft_quote_len(char *s, int len);
-int	ft_inside_quote(char *s, t_data_parsing *data, char **cmd, int *new_cmd_index);
+int		ft_inside_quote(char *s, t_data_parsing *data, char **cmd,
+			int *new_cmd_index);
 int		ft_tokenize(char *buffer, save_struct *t_struct, t_envp **env);
 int		ft_check_double_symbols(char *s, char **cmd);
 int		ft_exec_syntax_functions(t_cmd **cmd, t_envp **env,
@@ -57,11 +58,16 @@ int		ft_check_redir2(t_cmd *node, t_envp **env);
 int		ft_check_pipe(t_cmd *node, t_envp **env, save_struct *t_struct);
 int		ft_check_Cbracket(t_cmd *node, t_envp **env, save_struct *t_struct);
 int		ft_count_bracket(t_cmd *node, char **error_cmd, t_envp **env);
+void	ft_wildcard(t_cmd **lst);
 t_redir	*ft_redir(char *s, int len, t_data_parsing *data);
 t_redir	*ft_handle_quote(char *s, int len, t_data_parsing *data, char **cmd);
-void	ft_wildcard(t_cmd **cmd);
+int		ft_match(char *cmd, char *dir);
 void	ft_cpy_expand(char *s, t_data_parsing *data, t_envp **env,
 			char **exp_code);
+int		ft_cpy_expand_2(char *s, char **exp, int *j, t_envp **env);
+int		ft_expand_len(char *s, t_envp **env, char **exp_code);
+int		ft_expand_math(char *s, t_envp **env, int len);
+int		ft_bad_subst(char *s);
 
 // lst_proto
 void	ft_save_envp(char **envp_tab, t_envp **envp_lst);

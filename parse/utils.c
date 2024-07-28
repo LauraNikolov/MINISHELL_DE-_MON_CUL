@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 00:30:48 by renard            #+#    #+#             */
+/*   Updated: 2024/07/29 00:31:03 by renard           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	ft_is_str(char c, char *s)
@@ -35,7 +47,6 @@ void	ft_swap_content(char **s1, char **s2)
 	*s2 = tmp;
 }
 
-
 void	ft_override_content(char **s1, char *s2)
 {
 	if (!s2)
@@ -58,9 +69,3 @@ int	ft_str_is_alpha(char *s)
 	}
 	return (0);
 }
-
-
-
-
-
-

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 00:30:51 by renard            #+#    #+#             */
+/*   Updated: 2024/07/29 00:30:54 by renard           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	ft_all_free(save_struct *t_struct, int flag, char **buff)
@@ -33,7 +45,7 @@ int	ft_safe_malloc(char **s, int size, save_struct *t_struct)
 
 int	ft_putstr_cmd_fd(char *s, int fd, char **str, int flag)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (flag == 2)

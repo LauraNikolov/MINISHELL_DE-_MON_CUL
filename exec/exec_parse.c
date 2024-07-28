@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_parse.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicolof <lnicolof@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:56:13 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/07/26 12:47:52 by lnicolof         ###   ########.fr       */
+/*   Updated: 2024/07/29 00:26:30 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void	ft_parse_error(t_cmd *cmd)
 			error_exec_str("Is a directory", cmd->cmd[0], 126);
 		if (!(buf.st_mode & S_IXUSR) || !(buf.st_mode & S_IRUSR)
 			|| !S_ISLNK(buf.st_mode) || !S_ISDIR(buf.st_mode))
-			error_exec_str("Permission denied", cmd->cmd[0], 126);
+			error_exec_str("Permission denied\n", cmd->cmd[0], 126);
 	}
 	if (ft_strncmp("./", cmd->cmd[0], 2) == 0 || ft_strncmp("/", cmd->cmd[0],
 			1) == 0)
-		error_exec_str("No such file or directory", cmd->cmd[0], 127);
+		error_exec_str("No such file or directory\n", cmd->cmd[0], 127);
 	else
-		error_exec_str("command not found", cmd->cmd[0], 127);
+		error_exec_str("command not found\n", cmd->cmd[0], 127);
 }
 
 void	close_fds(t_cmd *cmd_list)

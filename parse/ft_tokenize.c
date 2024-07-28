@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_tokenize.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 00:30:25 by renard            #+#    #+#             */
+/*   Updated: 2024/07/29 00:37:32 by renard           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	ft_tokenize(char *buffer, save_struct *t_struct, t_envp **env)
@@ -23,9 +35,7 @@ int	ft_tokenize(char *buffer, save_struct *t_struct, t_envp **env)
 	ft_clean_cmd_lst(&(t_struct->cmd), t_struct);
 	ft_wildcard(&(t_struct->cmd));
 	if (ft_exec_syntax_functions(&(t_struct->cmd), &(t_struct->envp),
-			t_struct) == -1)
-		return (-1);
-	if (!t_struct->cmd)
+			t_struct) == -1 || !t_struct->cmd)
 		return (-1);
 	return (0);
 }

@@ -1,33 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_wildcard.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 00:30:30 by renard            #+#    #+#             */
+/*   Updated: 2024/07/29 01:00:40 by renard           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
-
-int	ft_match(char *cmd, char *dir)
-{
-	int	i;
-	int	j;
-	int	k;
-
-	i = 0;
-	j = 0;
-	k = 0;
-	while (cmd[i] && cmd[i] != '*')
-		i++;
-	while (cmd[k + i] && cmd[k + i] == '*')
-		k++;
-	if ((!cmd || !cmd[0]) && dir)
-		return (0);
-	if (!ft_strncmp(cmd, dir, i))
-	{
-		if (cmd[i + k - 1] == '*' && !cmd[i + k])
-			return (1);
-		if (!cmd[i + k] && !dir[i])
-			return (1);
-		while (cmd[i + k] && dir[j] && cmd[i + k] != dir[j])
-			j++;
-		j += ft_is_char(&dir[j + 1], dir[j]);
-		return (ft_match(&cmd[i + k], &dir[j]));
-	}
-	return (0);
-}
 
 static int	get_wild_len(char *s)
 {

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_create_token_lst.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 00:29:55 by renard            #+#    #+#             */
+/*   Updated: 2024/07/29 00:29:56 by renard           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 char	*ft_search_var(char *var, t_envp **env)
@@ -91,15 +103,14 @@ void	ft_create_token_lst(char *buffer, save_struct *t_struct)
 	char			*exp_code;
 	int				j;
 	int				len;
-	t_cmd			*new_cmd;
 	t_data_parsing	data;
-	t_redir			*redir;
 
 	j = 0;
 	exp_code = NULL;
 	ft_memset(&data, '0', sizeof(data));
 	if (t_struct && !t_struct->save_spaces)
-		if (ft_safe_malloc(&(t_struct->save_spaces), ft_strlen(buffer) + 1, t_struct) == -1)
+		if (ft_safe_malloc(&(t_struct->save_spaces), ft_strlen(buffer) + 1,
+				t_struct) == -1)
 			return (exit_error("Malloc failed\n", t_struct));
 	data.buffer = buffer;
 	data.cmd = NULL;
@@ -108,9 +119,8 @@ void	ft_create_token_lst(char *buffer, save_struct *t_struct)
 	while (buffer[j])
 	{
 		len = ft_split_cmd(buffer, &j, &exp_code, t_struct);
-		redir = ft_handle_quote(&buffer[j - len], len, &data, &data.cmd);
-		new_cmd = create_cmd_node(redir, &data.cmd, &exp_code);
-		add_to_lst(&(t_struct->cmd), new_cmd);
+		add_to_lst(&(t_struct->cmd), create_cmd_node(ft_handle_quote(&buffer[j
+					- len], len, &data, &data.cmd), &data.cmd, &exp_code));
 		if (ft_is_str(buffer[j], "|()&"))
 			j += ft_get_symb(t_struct, &buffer[j], &data.cmd);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_lst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 13:52:23 by melmarti          #+#    #+#             */
-/*   Updated: 2024/07/28 21:14:14 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/28 23:40:53 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,9 @@ static void	ft_replace_spaces(char *cmd, save_struct *t_struct, int *k)
 	{
 		while (t_struct->save_spaces[*k] && ft_is_str(t_struct->save_spaces[*k],
 				"2456"))
-		{
 			(*k)++;
-			printf("t_struct->save_spaces[*k] AFTER %c,cmd[j] = %c\n ", t_struct->save_spaces[*k], cmd[j]);
-		}
-			
 		if ((cmd[j] == '/' && t_struct->save_spaces[*k] == '1'))
 			cmd[j] = ' ';
-		printf("t_struct->save_spaces[*k] AFTER %c,cmd[j] = %c\n ", t_struct->save_spaces[*k], cmd[j]);
 		j++;
 		(*k)++;
 	}

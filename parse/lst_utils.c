@@ -1,72 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lst_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 00:30:37 by renard            #+#    #+#             */
+/*   Updated: 2024/07/29 00:36:43 by renard           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
-
-int	ft_lst_size(t_cmd *cmd)
-{
-	t_cmd	*save;
-	int		i;
-
-	i = 0;
-	save = cmd;
-	while (cmd)
-	{
-		cmd = cmd->next;
-		i++;
-	}
-	cmd = save;
-	return (i);
-}
-
-void	ft_free_envp_lst(t_envp **lst, t_envp **env)
-{
-	t_envp	*curr;
-	t_envp	*temp;
-
-	if (!*lst)
-		ft_free_envp_lst(env, NULL);
-	curr = *lst;
-	while (curr)
-	{
-		temp = curr->next;
-		free(curr->var_name);
-		free(curr->var_value);
-		free(curr);
-		curr = temp;
-	}
-}
-
-void	ft_free_redir(t_redir *redir)
-{
-	t_redir	*tmp;
-
-	while (redir)
-	{
-		tmp = redir->next;
-		free(redir->redir);
-		free(redir);
-		redir = tmp;
-	}
-}
-
-void	ft_free_node(t_cmd *node)
-{
-	if (node->cmd)
-		ft_free_tab(node->cmd);
-	free(node->path);
-	free(node);
-}
-void	ft_free_lst(t_cmd *lst)
-{
-	t_cmd	*temp;
-
-	while (lst)
-	{
-		temp = lst->next;
-		if (lst->redir)
-			ft_free_redir(lst->redir);
-		ft_free_node(lst);
-		lst = temp;
-	}
-}
 
 int	ft_print_envp(t_envp **envp)
 {
@@ -146,11 +90,10 @@ void	ft_print_lst(t_cmd *node)
 		i = 1;
 	}
 }
-
 t_cmd	*lst_last(t_cmd *node)
 {
 	t_cmd	*curr;
-
+	
 	curr = node;
 	while (curr->next)
 		curr = curr->next;
@@ -177,104 +120,4 @@ t_envp	*lst_envp_last(t_envp *node)
 	while (curr->next)
 		curr = curr->next;
 	return (curr);
-}
-
-void	add_to_lst(t_cmd **head, t_cmd *new_node)
-{
-	t_cmd	*last;
-
-	
-	if (!*head)
-	{
-		*head = new_node;
-		return ;
-	}
-	last = lst_last(*head);
-	new_node->prev = last;
-	last->next = new_node;
-}
-
-void	add_to_envp_lst(t_envp **head, t_envp *new_node)
-{
-	t_envp	*last;
-
-	if (!*head)
-	{
-		*head = new_node;
-		return ;
-	}
-	last = lst_envp_last(*head);
-	new_node->prev = last;
-	last->next = new_node;
-}
-t_envp	*create_envp_node(char *var, int print_flag)
-{
-	t_envp	*envp;
-	int		i;
-
-	envp = NULL;
-	envp = malloc(sizeof(t_envp));
-	if (!envp || !var)
-		return (NULL);
-	i = 0;
-	while (var[i] && var[i] != '=')
-		i++;
-	envp->var_name = ft_strndup(var, i);
-	envp->var_value = NULL;
-	if (var[i + 1])
-		envp->var_value = ft_strdup(&var[i + 1]);
-	envp->print_flag = print_flag;
-	envp->next = NULL;
-	envp->prev = NULL;
-	return (envp);
-}
-
-t_cmd	*create_cmd_node2(t_cmd *new_node, char **cmd)
-{
-	new_node->prev = NULL;
-	new_node->path = NULL;
-	new_node->bool_bracket = NULL;
-	if (!ft_strcmp(*cmd, "||"))
-		new_node->type = OR;
-	else if (!ft_strcmp(*cmd, "|"))
-		new_node->type = PIPE;
-	else if (!ft_strcmp(*cmd, "&&"))
-		new_node->type = AND;
-	else if (!ft_strcmp(*cmd, "&"))
-		new_node->type = NO_TYPE;
-	else if (!ft_strcmp(*cmd, "("))
-		new_node->type = O_BRACKET;
-	else if (!ft_strcmp(*cmd, ")"))
-		new_node->type = C_BRACKET;
-	else
-		new_node->type = WORD;
-	free(*cmd);
-	cmd = NULL;
-	return (new_node);
-}
-
-t_cmd	*create_cmd_node(t_redir *redir, char **cmd, char **exp_code)
-{
-	t_cmd	*new_node;
-	int		i;
-
-	new_node = malloc(sizeof(t_cmd));
-	if (!new_node)
-		return (NULL);
-	i = 0;
-	while ((*cmd)[i] && (*cmd)[i] == ' ')
-		i++;
-	if (ft_strlen(*cmd) == (size_t)i)
-		new_node->cmd = NULL;
-	else
-		new_node->cmd = ft_split(*cmd, " ");
-	new_node->redir = redir;
-	new_node->next = NULL;
-	new_node->exp_code = NULL;
-	if (exp_code && *exp_code)
-	{
-		new_node->exp_code = ft_strdup(*exp_code);
-		ft_safe_free(exp_code);
-	}
-	return (create_cmd_node2(new_node, cmd), new_node);
 }

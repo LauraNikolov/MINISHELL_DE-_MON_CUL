@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   syntax_functions.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 00:30:40 by renard            #+#    #+#             */
+/*   Updated: 2024/07/29 00:31:14 by renard           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	ft_count_bracket(t_cmd *node, char **error_cmd, t_envp **env)
@@ -24,9 +36,9 @@ int	ft_count_bracket(t_cmd *node, char **error_cmd, t_envp **env)
 
 int	ft_check_Obracket(t_cmd *node, t_envp **env, save_struct *t_struct)
 {
-	(void)t_struct;
 	char	*error_cmd;
 
+	(void)t_struct;
 	error_cmd = NULL;
 	if (*(node->bool_bracket) == 0)
 	{
@@ -57,7 +69,7 @@ int	ft_check_op(t_cmd *node, t_envp **env, save_struct *t_struct)
 int	ft_exec_syntax_functions(t_cmd **cmd, t_envp **env, save_struct *t_struct)
 {
 	t_cmd	*curr;
-	int		(*ft_tab[6])(t_cmd *, t_envp **, save_struct *t_struct);
+	int		(*ft_tab[6])(t_cmd *, t_envp **, save_struct * t_struct);
 
 	ft_init_ft_tab(ft_tab);
 	curr = *cmd;
@@ -74,15 +86,15 @@ int	ft_exec_syntax_functions(t_cmd **cmd, t_envp **env, save_struct *t_struct)
 			if (ft_check_redir(curr, env) != 0)
 				return (-1);
 		}
-		else 
-		if (ft_tab[curr->type](curr, env, t_struct) != 0)
+		else if (ft_tab[curr->type](curr, env, t_struct) != 0)
 			return (-1);
 		curr = curr->next;
 	}
 	return (0);
 }
 
-void	ft_init_ft_tab(int (*ft_tab[6])(t_cmd *, t_envp **, save_struct *t_struct))
+void	ft_init_ft_tab(int (*ft_tab[6])(t_cmd *, t_envp **,
+			save_struct *t_struct))
 {
 	ft_tab[WORD] = ft_check_word;
 	ft_tab[PIPE] = ft_check_pipe;
