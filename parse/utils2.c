@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:51 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 00:30:54 by renard           ###   ########.fr       */
+/*   Updated: 2024/07/29 13:00:06 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_all_free(save_struct *t_struct, int flag, char **buff)
+void	ft_all_free(t_save_struct *t_struct, int flag, char **buff)
 {
 	if (flag)
 		ft_safe_free(buff);
@@ -30,7 +30,7 @@ void	ft_safe_free(char **s)
 	}
 }
 
-int	ft_safe_malloc(char **s, int size, save_struct *t_struct)
+int	ft_safe_malloc(char **s, int size, t_save_struct *t_struct)
 {
 	if (!s || size <= 0)
 		return (0);

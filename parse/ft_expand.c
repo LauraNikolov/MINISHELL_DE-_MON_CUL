@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:03 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 00:31:50 by renard           ###   ########.fr       */
+/*   Updated: 2024/07/29 12:58:32 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ static char	*ft_expand_return_var(char *s, t_envp **env, char **exp_code,
 	return (ft_strdup(s));
 }
 
-void	ft_expand(t_cmd *node, t_envp **env, save_struct *t_struct)
+void	ft_expand(t_cmd *node, t_envp **env, t_save_struct *t_struct)
 {
 	int				i;
 	int				len;

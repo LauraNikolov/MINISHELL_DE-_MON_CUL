@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicolof <lnicolof@student.42.fr>          +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:39:53 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/07/23 12:20:29 by lnicolof         ###   ########.fr       */
+/*   Updated: 2024/07/29 13:02:45 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*create_here_doc(char *str, char *limiter)
 	return (str);
 }
 
-static void	handle_heredoc(t_redir *redir, int i, save_struct *t_struct)
+static void	handle_heredoc(t_redir *redir, int i, t_save_struct *t_struct)
 {
 	char	*heredocname;
 
@@ -72,7 +72,7 @@ static void	handle_heredoc(t_redir *redir, int i, save_struct *t_struct)
 	}
 }
 
-static void	process_redirections(t_cmd *cmd, int *i, save_struct *t_struct)
+static void	process_redirections(t_cmd *cmd, int *i, t_save_struct *t_struct)
 {
 	t_redir	*current_redir;
 
@@ -88,7 +88,7 @@ static void	process_redirections(t_cmd *cmd, int *i, save_struct *t_struct)
 	}
 }
 
-void	manage_heredoc(t_cmd *cmd, save_struct *t_struct)
+void	manage_heredoc(t_cmd *cmd, t_save_struct *t_struct)
 {
 	int		i;
 	t_cmd	*current;

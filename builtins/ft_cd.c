@@ -24,12 +24,14 @@ static int	ft_write_cderr(char *path, t_envp **env)
 	return (ft_return_code(ft_strdup("1"), env));
 }
 
-int	ft_cd(save_struct *t_struct)
+int	ft_cd(t_save_struct *t_struct)
 {
 	char	*path;
 	char	old_pwd[PATH_MAX];
 	char	pwd[PATH_MAX];
 
+	if (!t_struct->cmd->cmd[1])
+		return (ft_return_code(ft_strdup("0"), &t_struct->envp), 0);
 	if (t_struct->cmd->cmd[2])
 	{
 		ft_putstr_cmd_fd("minishell : cd: too many arguments", 2, NULL, 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_parse.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:56:13 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/07/29 00:26:30 by renard           ###   ########.fr       */
+/*   Updated: 2024/07/29 13:02:06 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,13 @@ void	destroy_tmp_file(t_cmd *cmd)
 	}
 }
 
-void	ft_exec(save_struct *t_struct, char **envp)
+void	ft_exec(t_save_struct *t_struct, char **envp)
 {
 	int	cmd_size;
 	int	return_value;
 
 	cmd_size = ft_nbr_of_cmd(t_struct->cmd);
+	ft_signal(0);
 	if (cmd_size == 1)
 	{
 		t_struct->cmd->std_in = 0;

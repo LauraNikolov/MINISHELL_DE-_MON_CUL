@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 16:05:37 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/07/27 13:29:16 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 13:02:24 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	manage_single_child(t_cmd *cmd, char ***envp)
 	exit(-1);
 }
 
-static int	update_envp(char ***envp, save_struct *t_struct)
+static int	update_envp(char ***envp, t_save_struct *t_struct)
 {
 	char	**new_envp;
 
@@ -57,7 +57,7 @@ static int	update_envp(char ***envp, save_struct *t_struct)
 	return (0);
 }
 
-int	ft_execve_single_cmd(t_cmd *cmd, char ***envp, save_struct *t_struct)
+int	ft_execve_single_cmd(t_cmd *cmd, char ***envp, t_save_struct *t_struct)
 {
 	int	return_value;
 

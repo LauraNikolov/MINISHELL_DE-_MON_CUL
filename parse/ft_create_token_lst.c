@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_create_token_lst.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:29:55 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 00:29:56 by renard           ###   ########.fr       */
+/*   Updated: 2024/07/29 12:56:23 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_search_var(char *var, t_envp **env)
 	return (NULL);
 }
 
-static int	ft_get_symb(save_struct *t_struct, char *buff, char **cmd)
+static int	ft_get_symb(t_save_struct *t_struct, char *buff, char **cmd)
 {
 	int	len;
 	int	i;
@@ -43,7 +43,7 @@ static int	ft_get_symb(save_struct *t_struct, char *buff, char **cmd)
 }
 
 void	ft_encode_expand(char **exp_code, char c, int quote_flag,
-		save_struct *t_struct)
+		t_save_struct *t_struct)
 {
 	int		len;
 	char	*new_exp;
@@ -73,7 +73,7 @@ void	ft_encode_expand(char **exp_code, char c, int quote_flag,
 }
 
 static int	ft_split_cmd(char *buffer, int *j, char **exp_code,
-		save_struct *t_struct)
+		t_save_struct *t_struct)
 {
 	int		len;
 	char	c;
@@ -98,7 +98,7 @@ static int	ft_split_cmd(char *buffer, int *j, char **exp_code,
 	return (len);
 }
 
-void	ft_create_token_lst(char *buffer, save_struct *t_struct)
+void	ft_create_token_lst(char *buffer, t_save_struct *t_struct)
 {
 	char			*exp_code;
 	int				j;

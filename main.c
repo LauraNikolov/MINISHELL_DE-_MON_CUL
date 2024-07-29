@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 12:09:11 by melmarti          #+#    #+#             */
+/*   Updated: 2024/07/29 13:03:15 by melmarti         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	main(int ac, char **av, char **envp)
 {
 	char		*buffer;
 	t_envp		*env;
-	save_struct	*t_struct;
+	t_save_struct	*t_struct;
 
 	(void)av;
 	(void)ac;
@@ -13,7 +25,7 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		ft_signal(1);
-		t_struct = malloc(sizeof(save_struct));
+		t_struct = malloc(sizeof(t_save_struct));
 		if (!t_struct)
 			return (ft_free_envp_lst(&env, NULL), 0);
 		ft_memset(t_struct, 0, sizeof(*t_struct));

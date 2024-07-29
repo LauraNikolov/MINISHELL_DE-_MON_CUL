@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_functions2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:42 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 01:02:24 by renard           ###   ########.fr       */
+/*   Updated: 2024/07/29 12:59:51 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	ft_check_word2(t_cmd *node, t_envp **env)
 	return (0);
 }
 
-int	ft_check_word(t_cmd *node, t_envp **env, save_struct *t_struct)
+int	ft_check_word(t_cmd *node, t_envp **env, t_save_struct *t_struct)
 {
 	if (!node->cmd)
 		return (0);
@@ -97,7 +97,7 @@ int	ft_check_word(t_cmd *node, t_envp **env, save_struct *t_struct)
 	return (0);
 }
 
-int	ft_check_Cbracket(t_cmd *node, t_envp **env, save_struct *t_struct)
+int	ft_check_Cbracket(t_cmd *node, t_envp **env, t_save_struct *t_struct)
 {
 	t_cmd	*curr;
 

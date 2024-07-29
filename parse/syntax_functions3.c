@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_functions3.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:45 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 00:30:46 by renard           ###   ########.fr       */
+/*   Updated: 2024/07/29 12:59:56 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_check_pipe(t_cmd *node, t_envp **env, save_struct *t_struct)
+int	ft_check_pipe(t_cmd *node, t_envp **env, t_save_struct *t_struct)
 {
 	(void)t_struct;
 	if (!node->prev || !node->next)

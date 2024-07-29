@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:39:28 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/07/28 15:02:27 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 13:02:11 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	set_pipe_redir(t_cmd *cmd, t_ast *root)
 	}
 }
 
-int	ft_execve_pipe(t_cmd *cmd, char **envp, t_ast *root, save_struct *t_struct)
+int	ft_execve_pipe(t_cmd *cmd, char **envp, t_ast *root, t_save_struct *t_struct)
 {
 	int	return_value;
 

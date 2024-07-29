@@ -3,16 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tokenize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:25 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 00:37:32 by renard           ###   ########.fr       */
+/*   Updated: 2024/07/29 12:58:43 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_tokenize(char *buffer, save_struct *t_struct, t_envp **env)
+int		g_exit_status;
+
+void	ft_handler_signals(int signal)
+{
+	if (signal == SIGINT)
+	{
+		g_exit_status = 130;
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+}
+
+void	ft_handler_child_signals(int signal)
+{
+	if (signal == SIGQUIT)
+	{
+		ft_putstr_fd("Quit (core dumped)\n", 1);
+		g_exit_status = 131;
+		exit(131);
+	}
+	if (signal == SIGINT)
+	{
+		g_exit_status = 130;
+		write(1, "\n", 1);
+	}
+}
+
+void	ft_signal(int pid)
+{
+	if (pid != 0)
+	{
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, ft_handler_signals);
+	}
+	else
+	{
+		signal(SIGQUIT, ft_handler_child_signals);
+		signal(SIGINT, ft_handler_child_signals);
+	}
+}
+
+int	ft_tokenize(char *buffer, t_save_struct *t_struct, t_envp **env)
 {
 	t_cmd	*curr;
 	int		bool_bracket;
@@ -37,5 +80,6 @@ int	ft_tokenize(char *buffer, save_struct *t_struct, t_envp **env)
 	if (ft_exec_syntax_functions(&(t_struct->cmd), &(t_struct->envp),
 			t_struct) == -1 || !t_struct->cmd)
 		return (-1);
+	ft_return_code(ft_itoa(g_exit_status), env);
 	return (0);
 }

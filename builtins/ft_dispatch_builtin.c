@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-int	ft_dispatch_builtin(t_cmd *cmd, save_struct *t_struct)
+int	ft_dispatch_builtin(t_cmd *cmd, t_save_struct *t_struct)
 {
 	if (!t_struct->cmd->cmd)
 		return (-1);
@@ -21,7 +21,7 @@ int	ft_dispatch_builtin(t_cmd *cmd, save_struct *t_struct)
 	return (-1);
 }
 
-int	is_it_builtin(t_cmd *cmd, t_envp **env, save_struct *t_struct)
+int	is_it_builtin(t_cmd *cmd, t_envp **env, t_save_struct *t_struct)
 {
 	if (!cmd->cmd || !cmd->cmd[0])
 		return (0);

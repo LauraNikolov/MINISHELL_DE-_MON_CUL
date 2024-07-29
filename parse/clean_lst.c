@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_lst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 13:52:23 by melmarti          #+#    #+#             */
-/*   Updated: 2024/07/28 23:40:53 by renard           ###   ########.fr       */
+/*   Updated: 2024/07/29 12:55:57 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_remove_null_node(t_cmd **lst)
 	}
 }
 
-void	ft_clean_redir_lst(t_redir *redir, int *l, save_struct *t_struct)
+void	ft_clean_redir_lst(t_redir *redir, int *l, t_save_struct *t_struct)
 {
 	t_redir	*curr_redir;
 	int		i;
@@ -67,7 +67,7 @@ void	ft_clean_redir_lst(t_redir *redir, int *l, save_struct *t_struct)
 	}
 }
 
-static void	ft_replace_spaces(char *cmd, save_struct *t_struct, int *k)
+static void	ft_replace_spaces(char *cmd, t_save_struct *t_struct, int *k)
 {
 	int	j;
 
@@ -84,7 +84,7 @@ static void	ft_replace_spaces(char *cmd, save_struct *t_struct, int *k)
 	}
 }
 
-void	ft_clean_cmd_lst(t_cmd **lst, save_struct *t_struct)
+void	ft_clean_cmd_lst(t_cmd **lst, t_save_struct *t_struct)
 {
 	t_cmd	*curr;
 	int		i;

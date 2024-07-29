@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:05 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 00:30:06 by renard           ###   ########.fr       */
+/*   Updated: 2024/07/29 12:58:38 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_access(t_cmd *node, char **abs_path)
 	return (0);
 }
 
-void	ft_get_path(t_cmd *node, save_struct *t_struct)
+void	ft_get_path(t_cmd *node, t_save_struct *t_struct)
 {
 	char	*path;
 	char	*absolute_path;

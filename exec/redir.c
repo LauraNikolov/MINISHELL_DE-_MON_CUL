@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicolof <lnicolof@student.42.fr>          +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:43:21 by lauranicolo       #+#    #+#             */
-/*   Updated: 2024/07/22 10:55:23 by lnicolof         ###   ########.fr       */
+/*   Updated: 2024/07/29 13:04:37 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ void	set_new_fd(t_cmd *cmd, int *fd_in, int *fd_out)
 	}
 	if (*fd_out != -1)
 	{
-		if (cmd->std_in != 0)
-			close(cmd->std_in);
+		if (cmd->std_out != 1)
+			close(cmd->std_out);
 		cmd->std_out = *fd_out;
 	}
 }
