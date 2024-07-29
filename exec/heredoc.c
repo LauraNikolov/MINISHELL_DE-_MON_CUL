@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:39:53 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/07/29 15:05:49 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:36:45 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,11 @@ char	*create_here_doc(char *str, char *limiter)
 	}
 	free(line);
 	close(file);
+	exit(0);
 	}
 	else
 	{
+
 		ft_signal(3);
 		wait(0);
 		write(1, "\n", 1);

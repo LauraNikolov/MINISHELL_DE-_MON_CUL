@@ -6,19 +6,19 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:25 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 15:00:06 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:29:28 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		g_exit_status;
+int		g_exit_status = 0;
 
 void	ft_handler_signals(int signal)
 {
 	if (signal == SIGINT)
 	{
-		g_exit_status = 130;
+		g_exit_status = 1;
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
@@ -31,11 +31,11 @@ void	ft_handler_child_signals(int signal)
 	if (signal == SIGQUIT)
 	{
 		ft_putstr_fd("Quit (core dumped)\n", 1);
-		g_exit_status = 131;
+		g_exit_status = 2;
 	}
 	if (signal == SIGINT)
 	{
-		g_exit_status = 130;
+		g_exit_status = 1;
 		write(1, "\n", 1);
 	}
 }
@@ -52,10 +52,22 @@ void	ft_signal(int pid)
 		signal(SIGQUIT, ft_handler_child_signals);
 		signal(SIGINT, ft_handler_child_signals);
 	}
-	else if(pid == 3)
+	else if (pid == 3)
 		signal(SIGINT, SIG_IGN);
 	else if (pid == 2)
 		signal(SIGINT, SIG_DFL);
+	if (pid == 2 || pid == 3)
+		g_exit_status = 5;
+}
+
+int get_return_sig(int *g_exit_status)
+{
+	if(*g_exit_status == 1)
+		return(130);
+	else if(*g_exit_status == 2)
+		return(131);
+	*g_exit_status = 0;
+	return(0);
 }
 
 int	ft_tokenize(char *buffer, t_save_struct *tstruct, t_envp **env)
@@ -77,10 +89,10 @@ int	ft_tokenize(char *buffer, t_save_struct *tstruct, t_envp **env)
 	ft_remove_null_node(&(tstruct->cmd));
 	ft_clean_cmd_lst(&(tstruct->cmd), tstruct);
 	ft_wildcard(&(tstruct->cmd));
-	if (ft_exec_syntax_functions(&(tstruct->cmd), &(tstruct->envp), tstruct) ==
-		-1 || !tstruct->cmd)
+	if (ft_exec_func(&(tstruct->cmd), &(tstruct->envp), tstruct) == -1
+		|| !tstruct->cmd)
 		return (-1);
 	if (g_exit_status != 0)
-		ft_return_code(ft_itoa(g_exit_status), env);
+		ft_return_code(ft_itoa(get_return_sig(&g_exit_status)), env);
 	return (0);
 }

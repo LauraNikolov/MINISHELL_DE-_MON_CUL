@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:56:13 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/07/29 14:09:04 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:30:08 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,15 @@ void	ft_exec(t_save_struct *tstruct, char **envp)
 	int	cmd_size;
 	int	return_value;
 
+	return_value = 0;
 	cmd_size = ft_nbr_of_cmd(tstruct->cmd);
 	if (cmd_size == 1)
 	{
 		tstruct->cmd->std_in = 0;
 		tstruct->cmd->std_out = 1;
 		manage_heredoc(tstruct->cmd, tstruct);
-		return_value = ft_execve_single_cmd(tstruct->cmd, &envp, tstruct);
+		if(g_exit_status != 5)
+			return_value = ft_execve_single_cmd(tstruct->cmd, &envp, tstruct);
 		close_fds(tstruct->cmd);
 		ft_return_code(ft_itoa(return_value), &tstruct->envp);
 		destroy_tmp_file(tstruct->cmd);
@@ -108,7 +110,8 @@ void	ft_exec(t_save_struct *tstruct, char **envp)
 	else
 	{
 		manage_heredoc(tstruct->cmd, tstruct);
-		ft_exec_multi_cmds(tstruct, envp);
+		if(g_exit_status != 5)
+			ft_exec_multi_cmds(tstruct, envp);
 		close_fds(tstruct->cmd);
 		destroy_tmp_file(tstruct->cmd);
 		recursive_free_ast(&tstruct->ast);

@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:51 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 13:22:47 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:34:07 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,13 @@ int	ft_putstr_cmd_fd(char *s, int fd, char **str, int flag)
 	}
 	write(fd, s, ft_strlen(s));
 	if (flag == 1)
+	{
 		while (str[++i])
 		{
 			write(fd, " ", 2);
 			ft_putstr_fd(str[i], fd);
 		}
+	}
 	else if (str)
 	{
 		ft_putstr_fd(*str, fd);

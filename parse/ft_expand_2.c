@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:00 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 14:38:34 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:13:24 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ int	ft_cpy_expand_2(char *s, char **exp, int *j, t_envp **env)
 void	ft_cpy_expand(char *s, t_data_parsing *data, t_envp **env,
 		char **exp_code)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	j = 0;
 	i = 0;

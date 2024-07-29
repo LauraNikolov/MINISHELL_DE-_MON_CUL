@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 14:41:19 by lauranicolo       #+#    #+#             */
-/*   Updated: 2024/07/29 14:18:09 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:29:18 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define CYAN "\x1b[36m"
 # define RESET "\x1b[0m"
 
+extern int g_exit_status;
+
 int		main(int argc, char **argv, char **envp);
 
 // tokenisation
@@ -41,10 +43,10 @@ int		ft_inside_quote(char *s, t_data_parsing *data, char **cmd,
 			int *new_cmd_index);
 int		ft_tokenize(char *buffer, t_save_struct *tstruct, t_envp **env);
 int		ft_check_double_symbols(char *s, char **cmd);
-int		ft_exec_syntax_functions(t_cmd **cmd, t_envp **env,
+int		ft_exec_func(t_cmd **cmd, t_envp **env,
 			t_save_struct *tstruct);
 void	ft_init_ft_tab(int (*ft_tab[6])(t_cmd *, t_envp **,
-				t_save_struct *tstruct));
+				t_save_struct *));
 void	ft_get_path(t_cmd *node, t_save_struct *tstruct);
 int		ft_putstr_cmd_fd(char *s, int fd, char **str, int flag);
 void	ft_clean_cmd_lst(t_cmd **lst, t_save_struct *tstruct);
@@ -56,7 +58,7 @@ int		ft_check_word(t_cmd *node, t_envp **env, t_save_struct *tstruct);
 int		ft_check_redir(t_cmd *node, t_envp **env);
 int		ft_check_redir2(t_cmd *node, t_envp **env);
 int		ft_check_pipe(t_cmd *node, t_envp **env, t_save_struct *tstruct);
-int		ft_check_Cbracket(t_cmd *node, t_envp **env, t_save_struct *tstruct);
+int		ft_check_cbracket(t_cmd *node, t_envp **env, t_save_struct *tstruct);
 int		ft_count_bracket(t_cmd *node, char **error_cmd, t_envp **env);
 void	ft_wildcard(t_cmd **lst);
 t_redir	*ft_redir(char *s, int len, t_data_parsing *data);
@@ -82,7 +84,6 @@ void	add_to_redir_lst(t_redir **head, t_redir *new_node);
 t_envp	*lst_envp_last(t_envp *node);
 void	ft_free_node(t_cmd *node);
 t_envp	*create_envp_node(char *var_name, int print_flag);
-void	ft_print_lst(t_cmd *node); // A SUPP A LA FIN
 void	ft_free_tab(char **split);
 void	ft_free_lst(t_cmd *lst);
 void	ft_free_envp_lst(t_envp **lst, t_envp **env);
@@ -109,7 +110,6 @@ void	ft_exec_multi_cmds(t_save_struct *tstruct, char **envp);
 t_ast	*build_ast_recursive(t_cmd *start, t_cmd *end, t_ast *parent,
 			t_save_struct *tstruct);
 t_ast	*create_ast_node(t_cmd *node, t_ast *parent, t_save_struct *tstruct);
-void	print_ast(t_ast *root, int depth, char prefix);
 int		exec_ast_recursive(t_ast *root, char **envp, int return_value,
 			t_save_struct *tstruct);
 int		ft_exec_tree(t_ast *root);

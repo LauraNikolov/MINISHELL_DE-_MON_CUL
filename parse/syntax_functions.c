@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:40 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 14:15:19 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:39:13 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_count_bracket(t_cmd *node, char **error_cmd, t_envp **env)
 	return (p_counter);
 }
 
-int	ft_check_Obracket(t_cmd *node, t_envp **env, t_save_struct *tstruct)
+int	ft_check_obracket(t_cmd *node, t_envp **env, t_save_struct *tstruct)
 {
 	char	*error_cmd;
 
@@ -66,7 +66,7 @@ int	ft_check_op(t_cmd *node, t_envp **env, t_save_struct *tstruct)
 	return (0);
 }
 
-int	ft_exec_syntax_functions(t_cmd **cmd, t_envp **env, t_save_struct *tstruct)
+int	ft_exec_func(t_cmd **cmd, t_envp **env, t_save_struct *tstruct)
 {
 	t_cmd	*curr;
 	int		(*ft_tab[6])(t_cmd *, t_envp **, t_save_struct *);
@@ -86,8 +86,7 @@ int	ft_exec_syntax_functions(t_cmd **cmd, t_envp **env, t_save_struct *tstruct)
 			if (ft_check_redir(curr, env) != 0)
 				return (-1);
 		}
-		else if (tstruct->cmd->cmd[0][0] == '\t' || ft_tab[curr->type](curr,
-				env, tstruct) != 0)
+		else if (ft_tab[curr->type](curr, env, tstruct) != 0)
 			return (-1);
 		curr = curr->next;
 	}
@@ -100,6 +99,6 @@ void	ft_init_ft_tab(int (*ft_tab[6])(t_cmd *, t_envp **, t_save_struct *))
 	ft_tab[PIPE] = ft_check_pipe;
 	ft_tab[AND] = ft_check_op;
 	ft_tab[OR] = ft_check_op;
-	ft_tab[O_BRACKET] = ft_check_Obracket;
-	ft_tab[C_BRACKET] = ft_check_Cbracket;
+	ft_tab[O_BRACKET] = ft_check_obracket;
+	ft_tab[C_BRACKET] = ft_check_cbracket;
 }

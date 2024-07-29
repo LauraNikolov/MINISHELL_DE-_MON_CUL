@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_return_code.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:19 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 00:31:35 by renard           ###   ########.fr       */
+/*   Updated: 2024/07/29 15:17:27 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	ft_return_code(char *code, t_envp **env)
 {
 	t_envp	*curr;
 
+	
 	if (!env)
 		return (0);
 	curr = *env;

@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:42 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 14:38:14 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:42:25 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,9 @@ int	ft_check_word2(t_cmd *node, t_envp **env)
 
 int	ft_check_word(t_cmd *node, t_envp **env, t_save_struct *tstruct)
 {
+	if (tstruct->cmd->cmd && tstruct->cmd->cmd[0]
+		&& tstruct->cmd->cmd[0][0] == '\t')
+		return (-1);
 	if (!node->cmd)
 		return (0);
 	if (!node->next)
@@ -99,7 +102,7 @@ int	ft_check_word(t_cmd *node, t_envp **env, t_save_struct *tstruct)
 	return (0);
 }
 
-int	ft_check_Cbracket(t_cmd *node, t_envp **env, t_save_struct *tstruct)
+int	ft_check_cbracket(t_cmd *node, t_envp **env, t_save_struct *tstruct)
 {
 	t_cmd	*curr;
 
