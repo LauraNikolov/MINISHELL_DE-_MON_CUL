@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils_3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:35 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 00:30:36 by renard           ###   ########.fr       */
+/*   Updated: 2024/07/29 14:13:22 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	ft_free_node(t_cmd *node)
 	free(node->path);
 	free(node);
 }
+
 void	ft_free_lst(t_cmd *lst)
 {
 	t_cmd	*temp;

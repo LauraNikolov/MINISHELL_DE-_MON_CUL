@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 13:16:52 by melmarti          #+#    #+#             */
+/*   Updated: 2024/07/29 13:59:57 by melmarti         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 #include <errno.h>
 
@@ -99,7 +111,6 @@ int	ft_echo(t_cmd *cmd, t_envp **env)
 	int	option;
 	int	i;
 	int	fd;
-	int exit_errno;
 
 	option = 0;
 	i = 0;
@@ -128,3 +139,4 @@ int	ft_echo(t_cmd *cmd, t_envp **env)
 	ft_echo_str(cmd, option, i, env);
 	return (ft_return_code(ft_strdup("0"), env));
 }
+

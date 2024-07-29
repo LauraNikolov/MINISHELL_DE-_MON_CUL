@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 17:30:29 by melmarti          #+#    #+#             */
-/*   Updated: 2024/07/11 18:07:31 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 14:19:46 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,6 @@ char	*ft_split_substr(char *s, unsigned int start, size_t len)
 	}
 	str[i] = '\0';
 	return (str);
-}
-
-void	ft_free(char **strs, int n)
-{
-	int	i;
-
-	i = 0;
-	if (!strs[n])
-	{
-		while (strs[i])
-			free(strs[i++]);
-		free(strs);
-	}
-	return ;
 }
 
 static size_t	ft_len(char const *s, char *sep)
@@ -125,7 +111,7 @@ char	**ft_split(char *s, char *sep)
 		if (s[i] && ft_is_c(s[i], sep) == 0)
 		{
 			strs[n++] = ft_split_substr(s, i, ft_len(&s[i], sep));
-			ft_free(strs, n - 1);
+			ft_free_split(strs, n - 1);
 		}
 		while (s[i] && ft_is_c(s[i], sep) == 0)
 			i++;

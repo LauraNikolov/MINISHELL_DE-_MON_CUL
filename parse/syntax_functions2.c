@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:42 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 12:59:51 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 14:38:14 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,13 @@ int	ft_check_redir2(t_cmd *node, t_envp **env)
 				|| tmp->next->type != WORD || !tmp->next->redir[0]))
 		{
 			if (!(tmp->next->type >= 6 && tmp->next->type <= 9))
-				ft_putstr_cmd_fd("minishell: syntax error near unexpected token `newline'",
-					1, NULL, 0);
+				ft_putstr_fd("syntax error near unexpected token `newline'", 2);
 			else
-				ft_putstr_cmd_fd("minishell: syntax error near unexpected token `",
-					2, &tmp->next->redir, 0);
+			{
+				ft_putstr_fd("minishell: syntax error near unexpected token `",
+					2);
+				ft_putstr_fd(tmp->next->redir, 2);
+			}
 			return (ft_return_code(ft_strdup("2"), env), -1);
 		}
 		tmp = tmp->next;
@@ -52,8 +54,8 @@ int	ft_check_redir(t_cmd *node, t_envp **env)
 	}
 	if (!tmp->next || !tmp->next->redir[0])
 	{
-		ft_putstr_cmd_fd("minishell: syntax error near unexpected token `newline'",
-			1, NULL, 0);
+		ft_putstr_fd("minishell: syntax error near unexpected token `newline'",
+			2);
 		return (ft_return_code(ft_strdup("2"), env), -1);
 	}
 	ft_check_redir2(node, env);
@@ -77,13 +79,13 @@ int	ft_check_word2(t_cmd *node, t_envp **env)
 	return (0);
 }
 
-int	ft_check_word(t_cmd *node, t_envp **env, t_save_struct *t_struct)
+int	ft_check_word(t_cmd *node, t_envp **env, t_save_struct *tstruct)
 {
 	if (!node->cmd)
 		return (0);
 	if (!node->next)
 	{
-		ft_get_path(node, t_struct);
+		ft_get_path(node, tstruct);
 		if (ft_check_redir(node, env) != 0)
 			return (-1);
 		return (0);
@@ -91,17 +93,17 @@ int	ft_check_word(t_cmd *node, t_envp **env, t_save_struct *t_struct)
 	if (node->next->next)
 		if (ft_check_word2(node, env) != 0)
 			return (-1);
-	ft_get_path(node, t_struct);
+	ft_get_path(node, tstruct);
 	if (ft_check_redir(node, env) != 0)
 		return (-1);
 	return (0);
 }
 
-int	ft_check_Cbracket(t_cmd *node, t_envp **env, t_save_struct *t_struct)
+int	ft_check_Cbracket(t_cmd *node, t_envp **env, t_save_struct *tstruct)
 {
 	t_cmd	*curr;
 
-	(void)t_struct;
+	(void)tstruct;
 	if (!node->next)
 		return (0);
 	if (node->next == WORD)

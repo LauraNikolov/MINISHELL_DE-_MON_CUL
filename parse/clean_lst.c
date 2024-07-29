@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 13:52:23 by melmarti          #+#    #+#             */
-/*   Updated: 2024/07/29 12:55:57 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 13:22:47 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_remove_null_node(t_cmd **lst)
 	}
 }
 
-void	ft_clean_redir_lst(t_redir *redir, int *l, t_save_struct *t_struct)
+void	ft_clean_redir_lst(t_redir *redir, int *l, t_save_struct *tstruct)
 {
 	t_redir	*curr_redir;
 	int		i;
@@ -54,11 +54,11 @@ void	ft_clean_redir_lst(t_redir *redir, int *l, t_save_struct *t_struct)
 			i = -1;
 			while (curr_redir->redir[++i])
 			{
-				while (t_struct->save_spaces[*l]
-					&& ft_is_str(t_struct->save_spaces[*l], "0123"))
+				while (tstruct->save_spaces[*l]
+					&& ft_is_str(tstruct->save_spaces[*l], "0123"))
 					(*l)++;
 				if (curr_redir->redir[i] == '/'
-					&& (t_struct->save_spaces[*l] == '4'))
+					&& (tstruct->save_spaces[*l] == '4'))
 					curr_redir->redir[i] = ' ';
 				(*l)++;
 			}
@@ -67,24 +67,24 @@ void	ft_clean_redir_lst(t_redir *redir, int *l, t_save_struct *t_struct)
 	}
 }
 
-static void	ft_replace_spaces(char *cmd, t_save_struct *t_struct, int *k)
+static void	ft_replace_spaces(char *cmd, t_save_struct *tstruct, int *k)
 {
 	int	j;
 
 	j = 0;
 	while (cmd[j])
 	{
-		while (t_struct->save_spaces[*k] && ft_is_str(t_struct->save_spaces[*k],
+		while (tstruct->save_spaces[*k] && ft_is_str(tstruct->save_spaces[*k],
 				"2456"))
 			(*k)++;
-		if ((cmd[j] == '/' && t_struct->save_spaces[*k] == '1'))
+		if ((cmd[j] == '/' && tstruct->save_spaces[*k] == '1'))
 			cmd[j] = ' ';
 		j++;
 		(*k)++;
 	}
 }
 
-void	ft_clean_cmd_lst(t_cmd **lst, t_save_struct *t_struct)
+void	ft_clean_cmd_lst(t_cmd **lst, t_save_struct *tstruct)
 {
 	t_cmd	*curr;
 	int		i;
@@ -103,8 +103,8 @@ void	ft_clean_cmd_lst(t_cmd **lst, t_save_struct *t_struct)
 			continue ;
 		}
 		while (curr->cmd[++i])
-			ft_replace_spaces(curr->cmd[i], t_struct, &k);
-		ft_clean_redir_lst(curr->redir, &l, t_struct);
+			ft_replace_spaces(curr->cmd[i], tstruct, &k);
+		ft_clean_redir_lst(curr->redir, &l, tstruct);
 		curr = curr->next;
 	}
 }

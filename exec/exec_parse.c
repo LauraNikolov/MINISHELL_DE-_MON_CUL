@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:56:13 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/07/29 13:02:06 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 14:09:04 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,29 +89,28 @@ void	destroy_tmp_file(t_cmd *cmd)
 	}
 }
 
-void	ft_exec(t_save_struct *t_struct, char **envp)
+void	ft_exec(t_save_struct *tstruct, char **envp)
 {
 	int	cmd_size;
 	int	return_value;
 
-	cmd_size = ft_nbr_of_cmd(t_struct->cmd);
-	ft_signal(0);
+	cmd_size = ft_nbr_of_cmd(tstruct->cmd);
 	if (cmd_size == 1)
 	{
-		t_struct->cmd->std_in = 0;
-		t_struct->cmd->std_out = 1;
-		manage_heredoc(t_struct->cmd, t_struct);
-		return_value = ft_execve_single_cmd(t_struct->cmd, &envp, t_struct);
-		close_fds(t_struct->cmd);
-		ft_return_code(ft_itoa(return_value), &t_struct->envp);
-		destroy_tmp_file(t_struct->cmd);
+		tstruct->cmd->std_in = 0;
+		tstruct->cmd->std_out = 1;
+		manage_heredoc(tstruct->cmd, tstruct);
+		return_value = ft_execve_single_cmd(tstruct->cmd, &envp, tstruct);
+		close_fds(tstruct->cmd);
+		ft_return_code(ft_itoa(return_value), &tstruct->envp);
+		destroy_tmp_file(tstruct->cmd);
 	}
 	else
 	{
-		manage_heredoc(t_struct->cmd, t_struct);
-		ft_exec_multi_cmds(t_struct, envp);
-		close_fds(t_struct->cmd);
-		destroy_tmp_file(t_struct->cmd);
-		recursive_free_ast(&t_struct->ast);
+		manage_heredoc(tstruct->cmd, tstruct);
+		ft_exec_multi_cmds(tstruct, envp);
+		close_fds(tstruct->cmd);
+		destroy_tmp_file(tstruct->cmd);
+		recursive_free_ast(&tstruct->ast);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 13:53:09 by melmarti          #+#    #+#             */
-/*   Updated: 2024/07/28 13:53:10 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 14:16:12 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,22 @@ static int	ft_var_size(t_envp *node)
 	if (!node)
 		return (0);
 	if (node->var_name)
+	{
 		while (node->var_name[i])
 		{
 			i++;
 			len++;
 		}
+	}
 	i = 0;
 	if (node->var_value)
+	{
 		while (node->var_value[i])
 		{
 			i++;
 			len++;
 		}
+	}
 	return (len + 1);
 }
 

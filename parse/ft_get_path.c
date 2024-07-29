@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:05 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 12:58:38 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 13:22:47 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_access(t_cmd *node, char **abs_path)
 	return (0);
 }
 
-void	ft_get_path(t_cmd *node, t_save_struct *t_struct)
+void	ft_get_path(t_cmd *node, t_save_struct *tstruct)
 {
 	char	*path;
 	char	*absolute_path;
@@ -37,7 +37,7 @@ void	ft_get_path(t_cmd *node, t_save_struct *t_struct)
 		return ;
 	path = getenv("PATH");
 	if (!path)
-		exit_error("Getenv failed\n", t_struct);
+		exit_error("Getenv failed\n", tstruct);
 	bin = ft_split(path, ":");
 	i = -1;
 	while (bin[++i])

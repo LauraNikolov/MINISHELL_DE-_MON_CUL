@@ -6,15 +6,15 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:45 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 12:59:56 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 13:22:47 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_check_pipe(t_cmd *node, t_envp **env, t_save_struct *t_struct)
+int	ft_check_pipe(t_cmd *node, t_envp **env, t_save_struct *tstruct)
 {
-	(void)t_struct;
+	(void)tstruct;
 	if (!node->prev || !node->next)
 	{
 		ft_putstr_cmd_fd("minishell: syntax error near unexpected token `", 2,

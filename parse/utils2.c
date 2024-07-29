@@ -6,19 +6,19 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:51 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 13:00:06 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 13:22:47 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_all_free(t_save_struct *t_struct, int flag, char **buff)
+void	ft_all_free(t_save_struct *tstruct, int flag, char **buff)
 {
 	if (flag)
 		ft_safe_free(buff);
-	ft_free_lst(t_struct->cmd);
-	free(t_struct->save_spaces);
-	free(t_struct);
+	ft_free_lst(tstruct->cmd);
+	free(tstruct->save_spaces);
+	free(tstruct);
 }
 
 void	ft_safe_free(char **s)
@@ -30,14 +30,14 @@ void	ft_safe_free(char **s)
 	}
 }
 
-int	ft_safe_malloc(char **s, int size, t_save_struct *t_struct)
+int	ft_safe_malloc(char **s, int size, t_save_struct *tstruct)
 {
 	if (!s || size <= 0)
 		return (0);
 	*s = ft_calloc(size, sizeof(char));
 	if (!*s)
 	{
-		exit_error("Malloc error\n", t_struct);
+		exit_error("Malloc error\n", tstruct);
 		return (-1);
 	}
 	return (0);

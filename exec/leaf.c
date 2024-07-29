@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:11:34 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/07/29 13:03:00 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 14:05:17 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	leaf_stdout(t_cmd *cmd2, t_ast *root, t_ast *save_root)
 }
 
 void	exec_pipe_leaf(t_ast *root, char **envp, int *return_value,
-		t_save_struct *t_struct)
+		t_save_struct *tstruct)
 {
 	t_cmd	*cmd1;
 	t_cmd	*cmd2;
@@ -42,55 +42,56 @@ void	exec_pipe_leaf(t_ast *root, char **envp, int *return_value,
 	cmd1 = root->left->cmd;
 	cmd2 = root->right->cmd;
 	if (pipe(root->cmd->pipe) == -1)
-		exit_error("pipe failed\n", t_struct);
+		exit_error("pipe failed\n", tstruct);
 	if (root->cmd->prev_fd == -1)
 		cmd1->std_in = STDIN_FILENO;
 	else
 		cmd1->std_in = root->cmd->prev_fd;
 	cmd1->std_out = root->cmd->pipe[1];
-	*return_value = ft_execve_pipe(cmd1, envp, root, t_struct);
+	*return_value = ft_execve_pipe(cmd1, envp, root, tstruct);
 	if (pipe(root->cmd->pipe) == -1)
-		exit_error("pipe failed\n", t_struct);
-	leaf_stdout(cmd2, root, t_struct->save_root);
-	*return_value = ft_execve_pipe(cmd2, envp, root, t_struct);
-	if (root == t_struct->save_root || root->parent->cmd->type == OR
+		exit_error("pipe failed\n", tstruct);
+	leaf_stdout(cmd2, root, tstruct->save_root);
+	*return_value = ft_execve_pipe(cmd2, envp, root, tstruct);
+	if (root == tstruct->save_root || root->parent->cmd->type == OR
 		|| root->parent->cmd->type == AND)
 		last_pipe(root, cmd2, return_value);
 }
 
-void	and_or_leaf(t_ast *root, char **envp, t_save_struct *t_struct,
+void	and_or_leaf(t_ast *root, char **envp, t_save_struct *tstruct,
 		int *return_value)
 {
 	if (root->cmd->type == AND)
 	{
-		*return_value = ft_execve_single_cmd(root->left->cmd, &envp, t_struct);
+		*return_value = ft_execve_single_cmd(root->left->cmd, &envp, tstruct);
 		if (*return_value == 0)
 		{
 			*return_value = ft_execve_single_cmd(root->right->cmd, &envp,
-					t_struct);
+					tstruct);
 		}
 	}
 	else if (root->cmd->type == OR)
 	{
-		*return_value = ft_execve_single_cmd(root->left->cmd, &envp, t_struct);
+		*return_value = ft_execve_single_cmd(root->left->cmd, &envp, tstruct);
 		if (*return_value != 0)
 		{
 			*return_value = ft_execve_single_cmd(root->right->cmd, &envp,
-					t_struct);
+					tstruct);
 		}
 	}
 }
 
-int	exec_leaf(t_ast *root, char **envp, int return_value, t_save_struct *t_struct)
+int	exec_leaf(t_ast *root, char **envp, int return_value,
+		t_save_struct *tstruct)
 {
 	if (root->cmd->type == WORD)
 		return (0);
 	if (root->left->cmd->type == WORD && root->right->cmd->type == WORD)
 	{
 		if (root->cmd->type == PIPE)
-			exec_pipe_leaf(root, envp, &return_value, t_struct);
+			exec_pipe_leaf(root, envp, &return_value, tstruct);
 		else if (root->cmd->type == AND || root->cmd->type == OR)
-			and_or_leaf(root, envp, t_struct, &return_value);
+			and_or_leaf(root, envp, tstruct, &return_value);
 	}
 	return (return_value);
 }

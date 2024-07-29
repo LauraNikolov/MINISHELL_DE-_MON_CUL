@@ -51,6 +51,7 @@ FILES = ft_memset \
 		ft_putnbr_fd \
 		get_next_line \
 		get_next_line_utils \
+		ft_split_free \
 
 FILES_BONUS = ft_lstnew \
 			ft_lstadd_front \

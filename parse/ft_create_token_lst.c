@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:29:55 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 12:56:23 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 13:22:47 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,22 @@ char	*ft_search_var(char *var, t_envp **env)
 	return (NULL);
 }
 
-static int	ft_get_symb(t_save_struct *t_struct, char *buff, char **cmd)
+static int	ft_get_symb(t_save_struct *tstruct, char *buff, char **cmd)
 {
 	int	len;
 	int	i;
 
 	i = 0;
 	len = ft_check_double_symbols(buff, cmd);
-	add_to_lst(&(t_struct->cmd), create_cmd_node(NULL, cmd, NULL));
+	add_to_lst(&(tstruct->cmd), create_cmd_node(NULL, cmd, NULL));
 	i = len;
 	while (i--)
-		ft_strcat(t_struct->save_spaces, "0");
+		ft_strcat(tstruct->save_spaces, "0");
 	return (len);
 }
 
 void	ft_encode_expand(char **exp_code, char c, int quote_flag,
-		t_save_struct *t_struct)
+		t_save_struct *tstruct)
 {
 	int		len;
 	char	*new_exp;
@@ -60,7 +60,7 @@ void	ft_encode_expand(char **exp_code, char c, int quote_flag,
 		return ;
 	}
 	len = ft_strlen(*exp_code);
-	if (ft_safe_malloc(&new_exp, len + 2, t_struct))
+	if (ft_safe_malloc(&new_exp, len + 2, tstruct))
 		return ;
 	ft_strlcpy(new_exp, *exp_code, len + 1);
 	if (c == '\'' && quote_flag == 1)
@@ -73,7 +73,7 @@ void	ft_encode_expand(char **exp_code, char c, int quote_flag,
 }
 
 static int	ft_split_cmd(char *buffer, int *j, char **exp_code,
-		t_save_struct *t_struct)
+		t_save_struct *tstruct)
 {
 	int		len;
 	char	c;
@@ -91,14 +91,14 @@ static int	ft_split_cmd(char *buffer, int *j, char **exp_code,
 			quote_flag *= -1;
 		}
 		if (buffer[*j] == '$')
-			ft_encode_expand(exp_code, c, quote_flag, t_struct);
+			ft_encode_expand(exp_code, c, quote_flag, tstruct);
 		(*j)++;
 		len++;
 	}
 	return (len);
 }
 
-void	ft_create_token_lst(char *buffer, t_save_struct *t_struct)
+void	ft_create_token_lst(char *buffer, t_save_struct *tstruct)
 {
 	char			*exp_code;
 	int				j;
@@ -108,20 +108,20 @@ void	ft_create_token_lst(char *buffer, t_save_struct *t_struct)
 	j = 0;
 	exp_code = NULL;
 	ft_memset(&data, '0', sizeof(data));
-	if (t_struct && !t_struct->save_spaces)
-		if (ft_safe_malloc(&(t_struct->save_spaces), ft_strlen(buffer) + 1,
-				t_struct) == -1)
-			return (exit_error("Malloc failed\n", t_struct));
+	if (tstruct && !tstruct->save_spaces)
+		if (ft_safe_malloc(&(tstruct->save_spaces), ft_strlen(buffer) + 1,
+				tstruct) == -1)
+			return (exit_error("Malloc failed\n", tstruct));
 	data.buffer = buffer;
 	data.cmd = NULL;
-	data.t_struct = t_struct;
+	data.tstruct = tstruct;
 	data.bufflen = ft_strlen(buffer);
 	while (buffer[j])
 	{
-		len = ft_split_cmd(buffer, &j, &exp_code, t_struct);
-		add_to_lst(&(t_struct->cmd), create_cmd_node(ft_handle_quote(&buffer[j
+		len = ft_split_cmd(buffer, &j, &exp_code, tstruct);
+		add_to_lst(&(tstruct->cmd), create_cmd_node(ft_handle_quote(&buffer[j
 					- len], len, &data, &data.cmd), &data.cmd, &exp_code));
 		if (ft_is_str(buffer[j], "|()&"))
-			j += ft_get_symb(t_struct, &buffer[j], &data.cmd);
+			j += ft_get_symb(tstruct, &buffer[j], &data.cmd);
 	}
 }

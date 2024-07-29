@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:32 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 01:14:11 by renard           ###   ########.fr       */
+/*   Updated: 2024/07/29 13:59:25 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	add_to_envp_lst(t_envp **head, t_envp *new_node)
 	new_node->prev = last;
 	last->next = new_node;
 }
+
 t_envp	*create_envp_node(char *var, int print_flag)
 {
 	t_envp	*envp;
@@ -87,8 +88,8 @@ t_cmd	*create_cmd_node2(t_cmd *new_node, char **cmd)
 
 t_cmd	*create_cmd_node(t_redir *redir, char **cmd, char **exp_code)
 {
-	t_cmd *new_node;
-	int i;
+	t_cmd	*new_node;
+	int		i;
 
 	new_node = malloc(sizeof(t_cmd));
 	if (!new_node)

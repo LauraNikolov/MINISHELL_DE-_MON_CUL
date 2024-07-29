@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauranicoloff <lauranicoloff@student.42    +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 12:46:28 by melmarti          #+#    #+#             */
-/*   Updated: 2024/06/26 15:23:59 by lauranicolo      ###   ########.fr       */
+/*   Updated: 2024/07/29 14:08:55 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ t_list	*ft_lst_last(t_list *stash)
 		current = current->next;
 	return (current);
 }
-
 
 void	ft_free_gnl(t_list *stash)
 {

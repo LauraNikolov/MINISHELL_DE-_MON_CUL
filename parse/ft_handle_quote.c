@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_handle_quote.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:10 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 00:30:11 by renard           ###   ########.fr       */
+/*   Updated: 2024/07/29 13:22:47 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ static void	ft_encode_spaces(char **cmd, t_data_parsing *data, char c,
 {
 	if (*cmd)
 		(*cmd)[*new_cmd_index] = c;
-	if (!data->t_struct)
+	if (!data->tstruct)
 		return ;
 	if ((*cmd)[*new_cmd_index] != ' ')
 	{
 		if (data->bufflen == -1)
-			ft_strcat(data->t_struct->save_spaces, "6");
+			ft_strcat(data->tstruct->save_spaces, "6");
 		else
-			ft_strcat(data->t_struct->save_spaces, "3");
+			ft_strcat(data->tstruct->save_spaces, "3");
 	}
 	else
-		ft_strcat(data->t_struct->save_spaces, "2");
+		ft_strcat(data->tstruct->save_spaces, "2");
 	(*new_cmd_index)++;
 }
 
@@ -66,7 +66,7 @@ t_redir	*ft_handle_quote(char *s, int len, t_data_parsing *data, char **cmd)
 
 	new_cmd_index = 0;
 	redir = NULL;
-	if (ft_safe_malloc(cmd, (ft_quote_len(s, len) + 1), data->t_struct) == -1)
+	if (ft_safe_malloc(cmd, (ft_quote_len(s, len) + 1), data->tstruct) == -1)
 		return (NULL);
 	data->i = 0;
 	data->cmd_index = 0;
@@ -90,9 +90,9 @@ t_redir	*ft_handle_quote(char *s, int len, t_data_parsing *data, char **cmd)
 static void	ft_inside_quote_2(t_data_parsing *data)
 {
 	if (data->bufflen == -1)
-		ft_strcat(data->t_struct->save_spaces, "5");
+		ft_strcat(data->tstruct->save_spaces, "5");
 	else
-		ft_strcat(data->t_struct->save_spaces, "0");
+		ft_strcat(data->tstruct->save_spaces, "0");
 }
 
 int	ft_inside_quote(char *s, t_data_parsing *data, char **cmd,
@@ -109,9 +109,9 @@ int	ft_inside_quote(char *s, t_data_parsing *data, char **cmd,
 		{
 			(*cmd)[*new_cmd_index] = '/';
 			if (data->bufflen == -1)
-				ft_strcat(data->t_struct->save_spaces, "4");
+				ft_strcat(data->tstruct->save_spaces, "4");
 			else
-				ft_strcat(data->t_struct->save_spaces, "1");
+				ft_strcat(data->tstruct->save_spaces, "1");
 			(*new_cmd_index)++;
 		}
 		else

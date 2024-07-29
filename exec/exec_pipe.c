@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:39:28 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/07/29 13:02:11 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 14:09:19 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,23 @@ void	set_pipe_redir(t_cmd *cmd, t_ast *root)
 	}
 }
 
-int	ft_execve_pipe(t_cmd *cmd, char **envp, t_ast *root, t_save_struct *t_struct)
+int	ft_execve_pipe(t_cmd *cmd, char **envp, t_ast *root, t_save_struct *tstruct)
 {
 	int	return_value;
 
 	return_value = 0;
 	cmd->pid = fork();
 	if (cmd->pid == -1)
-		exit_error("fork failed\n", t_struct);
+	{
+		exit_error("fork failed\n", tstruct);
+		ft_signal(0);
+	}
 	if (cmd->pid == 0)
 	{
 		set_pipe_redir(cmd, root);
 		close(root->cmd->pipe[0]);
-		ft_expand(cmd, &t_struct->envp, t_struct);
-		return_value = ft_dispatch_builtin(cmd, t_struct);
+		ft_expand(cmd, &tstruct->envp, tstruct);
+		return_value = ft_dispatch_builtin(cmd, tstruct);
 		if (return_value != -1)
 			exit(return_value);
 		else
@@ -76,4 +79,3 @@ int	ft_execve_pipe(t_cmd *cmd, char **envp, t_ast *root, t_save_struct *t_struct
 		close_pipe_parent(cmd, root);
 	return (return_value);
 }
-

@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 13:31:26 by melmarti          #+#    #+#             */
-/*   Updated: 2024/06/21 12:53:32 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 13:18:31 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 long long	ft_atoll(const char *s)
 {
-	int i;
-	int sign;
-	long long nbr;
+	int			i;
+	int			sign;
+	long long	nbr;
 
 	i = 0;
 	sign = 1;

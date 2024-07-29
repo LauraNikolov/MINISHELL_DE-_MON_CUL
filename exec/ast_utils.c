@@ -6,13 +6,13 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:45:40 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/07/29 13:00:54 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 13:22:47 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_ast	*create_ast_node(t_cmd *cmd, t_ast *parent, t_save_struct *t_struct)
+t_ast	*create_ast_node(t_cmd *cmd, t_ast *parent, t_save_struct *tstruct)
 {
 	t_ast	*node;
 
@@ -22,7 +22,7 @@ t_ast	*create_ast_node(t_cmd *cmd, t_ast *parent, t_save_struct *t_struct)
 	}
 	node = (t_ast *)malloc(sizeof(t_ast));
 	if (!node)
-		exit_error("malloc failed\n", t_struct);
+		exit_error("malloc failed\n", tstruct);
 	node->cmd = cmd;
 	node->left = NULL;
 	node->right = NULL;
@@ -112,7 +112,7 @@ static t_cmd	*find_pipe_root(t_cmd *start, t_cmd *end)
 
 // Fonction principale
 t_ast	*build_ast_recursive(t_cmd *start, t_cmd *end, t_ast *parent,
-		t_save_struct *t_struct)
+		t_save_struct *tstruct)
 {
 	t_cmd	*root;
 	t_cmd	*right_start;
@@ -124,11 +124,11 @@ t_ast	*build_ast_recursive(t_cmd *start, t_cmd *end, t_ast *parent,
 	if (!root)
 		root = find_pipe_root(start, end);
 	if (!root)
-		return (create_ast_node(start, parent, t_struct));
+		return (create_ast_node(start, parent, tstruct));
 	right_start = root->next;
-	root_node = create_ast_node(root, parent, t_struct);
-	gauche = build_ast_recursive(start, root->prev, root_node, t_struct);
-	droit = build_ast_recursive(right_start, end, root_node, t_struct);
+	root_node = create_ast_node(root, parent, tstruct);
+	gauche = build_ast_recursive(start, root->prev, root_node, tstruct);
+	droit = build_ast_recursive(right_start, end, root_node, tstruct);
 	join_tree(gauche, droit, root_node);
 	return (root_node);
 }

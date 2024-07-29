@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 16:05:37 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/07/29 13:02:24 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 13:39:30 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ void	manage_single_child(t_cmd *cmd, char ***envp)
 	exit(-1);
 }
 
-static int	update_envp(char ***envp, t_save_struct *t_struct)
+static int	update_envp(char ***envp, t_save_struct *tstruct)
 {
 	char	**new_envp;
 
-	new_envp = ft_envp_to_char(t_struct->envp);
+	new_envp = ft_envp_to_char(tstruct->envp);
 	if (new_envp == NULL)
 	{
 		return (-1);
@@ -57,27 +57,28 @@ static int	update_envp(char ***envp, t_save_struct *t_struct)
 	return (0);
 }
 
-int	ft_execve_single_cmd(t_cmd *cmd, char ***envp, t_save_struct *t_struct)
+int	ft_execve_single_cmd(t_cmd *cmd, char ***envp, t_save_struct *tstruct)
 {
 	int	return_value;
 
 	return_value = 0;
-	if (is_it_builtin(cmd, &t_struct->envp, t_struct) == 1)
+	if (is_it_builtin(cmd, &tstruct->envp, tstruct) == 1)
 	{
 		if (apply_redir(cmd) == -1)
-			return (ft_return_code(ft_strdup("1"), &t_struct->envp));
-		return_value = ft_dispatch_builtin(cmd, t_struct);
+			return (ft_return_code(ft_strdup("1"), &tstruct->envp));
+		return_value = ft_dispatch_builtin(cmd, tstruct);
 		if (return_value != -1)
 		{
-			if (update_envp(envp, t_struct) == -1)
-				return (exit_error("environnement expand failed\n", t_struct),
+			if (update_envp(envp, tstruct) == -1)
+				return (exit_error("environnement expand failed\n", tstruct),
 					0);
 			return (return_value);
 		}
 	}
 	cmd->pid = fork();
+	ft_signal(0);
 	if (cmd->pid == -1)
-		exit_error("fork failed", t_struct);
+		exit_error("fork failed", tstruct);
 	if (cmd->pid == 0)
 		manage_single_child(cmd, envp);
 	else

@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:39:53 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/07/29 13:02:45 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:05:49 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,12 @@ char	*create_here_doc(char *str, char *limiter)
 {
 	int		file;
 	char	*line;
+	int pid;
 
+	pid = fork();
+	if(pid == 0)
+	{
+		ft_signal(2);
 	file = open(str, O_CREAT | O_RDWR | O_TRUNC, 0000644);
 	if (file == -1)
 		perror("open:");
@@ -47,7 +52,11 @@ char	*create_here_doc(char *str, char *limiter)
 		write(1, "here_doc>  ", 10);
 		line = get_next_line(STDOUT_FILENO);
 		if (line == NULL)
-			return (NULL);
+		{
+			write(STDOUT_FILENO, "\n", 1);
+			free(line);
+			break;
+		}
 		if (ft_limiter(limiter, line) == 1)
 			break ;
 		write(file, line, ft_strlen(line) - 1);
@@ -56,10 +65,18 @@ char	*create_here_doc(char *str, char *limiter)
 	}
 	free(line);
 	close(file);
+	}
+	else
+	{
+		ft_signal(3);
+		wait(0);
+		write(1, "\n", 1);
+		ft_signal(1);
+	}
 	return (str);
 }
 
-static void	handle_heredoc(t_redir *redir, int i, t_save_struct *t_struct)
+static void	handle_heredoc(t_redir *redir, int i, t_save_struct *tstruct)
 {
 	char	*heredocname;
 
@@ -68,18 +85,18 @@ static void	handle_heredoc(t_redir *redir, int i, t_save_struct *t_struct)
 	{
 		redir->next->redir = create_here_doc(heredocname, redir->next->redir);
 		if (!redir->next->redir)
-			exit_error("heredoc failed\n", t_struct);
+			exit_error("heredoc failed\n", tstruct);
 	}
 }
 
-static void	process_redirections(t_cmd *cmd, int *i, t_save_struct *t_struct)
+static void	process_redirections(t_cmd *cmd, int *i, t_save_struct *tstruct)
 {
 	t_redir	*current_redir;
 
 	current_redir = cmd->redir;
 	while (current_redir && current_redir->type == R_HEREDOC)
 	{
-		handle_heredoc(current_redir, *i, t_struct);
+		handle_heredoc(current_redir, *i, tstruct);
 		if (current_redir->next)
 			current_redir = current_redir->next->next;
 		else
@@ -88,7 +105,7 @@ static void	process_redirections(t_cmd *cmd, int *i, t_save_struct *t_struct)
 	}
 }
 
-void	manage_heredoc(t_cmd *cmd, t_save_struct *t_struct)
+void	manage_heredoc(t_cmd *cmd, t_save_struct *tstruct)
 {
 	int		i;
 	t_cmd	*current;
@@ -98,7 +115,7 @@ void	manage_heredoc(t_cmd *cmd, t_save_struct *t_struct)
 	while (current)
 	{
 		if (current->redir)
-			process_redirections(current, &i, t_struct);
+			process_redirections(current, &i, tstruct);
 		current = current->next;
 	}
 }

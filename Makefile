@@ -47,6 +47,7 @@ builtins/env.c \
 builtins/exit.c \
 builtins/ft_pwd.c \
 builtins/export.c \
+builtins/export_2.c \
 builtins/unset.c \
 builtins/ft_cd.c \
 builtins/ft_dispatch_builtin.c \
@@ -63,7 +64,6 @@ exec/exec_pipe.c \
 exec/exec_single_cmd.c \
 exec/exec_utils.c \
 exec/fork.c \
-exec/ft_signals.c \
 exec/heredoc.c \
 exec/leaf.c \
 exec/redir.c \

@@ -6,32 +6,11 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:03 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 12:58:32 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 14:05:47 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-/* if (s[i] == '$' && s[i + 1] == '{')
-		{
-			while (s[i + var_len] && !ft_is_str(s[i + var_len], "\'\" $")
-					&& !ft_is_str(s[i + var_len - 1], "}"))
-				var_len++;
-			if (ft_bad_subst(&s[i + 2]))
-				ft_putstr_cmd_fd("minishell: bad_substition ", 2, &s, 0);
-			var = ft_strndup(&s[i + 2], var_len - 3);
-			var_value = ft_search_var(var, env);
-			var_value_len += ft_strlen(var_value);
-			if (var_value && exp_flag && (*exp_code)[l++] == '1')
-			{
-				k = 0;
-				while (var_value[k])
-					(*exp)[j++] = var_value[k++];
-			}
-			i += var_len - 1;
-			free(var);
-			var_value = NULL;
-		} */
 
 static int	ft_count_return_code(char *s, t_envp **env)
 {
@@ -112,7 +91,7 @@ static char	*ft_expand_return_var(char *s, t_envp **env, char **exp_code,
 	return (ft_strdup(s));
 }
 
-void	ft_expand(t_cmd *node, t_envp **env, t_save_struct *t_struct)
+void	ft_expand(t_cmd *node, t_envp **env, t_save_struct *tstruct)
 {
 	int				i;
 	int				len;
@@ -132,7 +111,7 @@ void	ft_expand(t_cmd *node, t_envp **env, t_save_struct *t_struct)
 					&data.k);
 			ft_safe_free(&data.exp);
 			len = ft_expand_len(node->cmd[i], env, &node->exp_code) + 1;
-			ft_safe_malloc(&data.exp, len, t_struct);
+			ft_safe_malloc(&data.exp, len, tstruct);
 			ft_cpy_expand(node->cmd[i], &data, env, &node->exp_code);
 			ft_safe_free(&node->cmd[i]);
 			node->cmd[i] = ft_strdup(data.exp);
