@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:25 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 15:29:28 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 17:08:17 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,14 @@ void	ft_signal(int pid)
 		g_exit_status = 5;
 }
 
-int get_return_sig(int *g_exit_status)
+int	get_return_sig(int *g_exit_status)
 {
-	if(*g_exit_status == 1)
-		return(130);
-	else if(*g_exit_status == 2)
-		return(131);
+	if (*g_exit_status == 1)
+		return (130);
+	else if (*g_exit_status == 2)
+		return (131);
 	*g_exit_status = 0;
-	return(0);
+	return (0);
 }
 
 int	ft_tokenize(char *buffer, t_save_struct *tstruct, t_envp **env)

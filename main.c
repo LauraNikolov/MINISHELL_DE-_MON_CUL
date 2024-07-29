@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 12:09:11 by melmarti          #+#    #+#             */
-/*   Updated: 2024/07/29 13:22:47 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/07/29 17:01:54 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ int	main(int ac, char **av, char **envp)
 		buffer = readline("minishell : ");
 		if (!buffer)
 			return (ft_free_envp_lst(&tstruct->envp, &env), free(buffer),
-				ft_all_free(tstruct, 0, &buffer), 0);
+				ft_all_free(tstruct, 1, &buffer), 0);
 		add_history(buffer);
 		if (ft_tokenize(buffer, tstruct, &env) != -1)
 			ft_exec(tstruct, ft_envp_to_char(tstruct->envp));
-		ft_all_free(tstruct, 1, &buffer);
+		ft_all_free(tstruct, 0, &buffer);
 	}
 	return (0);
 }
