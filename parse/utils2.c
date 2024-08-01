@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:51 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 15:34:07 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:47:12 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	ft_all_free(t_save_struct *tstruct, int flag, char **buff)
 	if (flag)
 		ft_safe_free(buff);
 	ft_free_lst(tstruct->cmd);
-	free(tstruct->save_spaces);
+	if(tstruct->envp_to_char)
+		ft_free_tab(tstruct->envp_to_char);
+	ft_safe_free(&tstruct->save_spaces);
 	free(tstruct);
 }
 

@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:32 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 13:59:25 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:41:46 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_envp	*create_envp_node(char *var, int print_flag)
 		i++;
 	envp->var_name = ft_strndup(var, i);
 	envp->var_value = NULL;
-	if (var[i + 1])
+	if (var[i] && var[i + 1])
 		envp->var_value = ft_strdup(&var[i + 1]);
 	envp->print_flag = print_flag;
 	envp->next = NULL;
@@ -109,5 +109,5 @@ t_cmd	*create_cmd_node(t_redir *redir, char **cmd, char **exp_code)
 		new_node->exp_code = ft_strdup(*exp_code);
 		ft_safe_free(exp_code);
 	}
-	return (create_cmd_node2(new_node, cmd), new_node);
+	return (create_cmd_node2(new_node, cmd));
 }

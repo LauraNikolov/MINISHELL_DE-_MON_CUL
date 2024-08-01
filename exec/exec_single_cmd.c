@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 16:05:37 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/07/29 13:39:30 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:58:58 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,7 @@ void	manage_single_child(t_cmd *cmd, char ***envp)
 
 static int	update_envp(char ***envp, t_save_struct *tstruct)
 {
-	char	**new_envp;
-
-	new_envp = ft_envp_to_char(tstruct->envp);
-	if (new_envp == NULL)
-	{
-		return (-1);
-	}
-	*envp = new_envp;
+	*envp = ft_envp_to_char(tstruct);
 	return (0);
 }
 

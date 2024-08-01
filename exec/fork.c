@@ -6,13 +6,13 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 12:59:48 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/07/29 13:22:47 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:24:24 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_exec_multi_cmds(t_save_struct *tstruct, char **envp)
+void	ft_exec_multi_cmds(t_save_struct *tstruct, char ***envp)
 {
 	t_cmd	*start;
 	t_cmd	*end;

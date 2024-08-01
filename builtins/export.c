@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:17:40 by melmarti          #+#    #+#             */
-/*   Updated: 2024/07/29 14:16:48 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/01 20:04:17 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_compare_var(t_envp **env, char *var)
 			if ((size_t)i != ft_strlen(curr->var_name))
 				break ;
 			flag = 1;
-			if (var[i + 1])
+			if (var[i] && var[i + 1])
 				ft_override_content(&curr->var_value, &var[i + 1]);
 			if (var[i] == '=')
 				curr->print_flag = 1;

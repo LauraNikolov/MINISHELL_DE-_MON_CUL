@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 18:11:34 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/07/29 14:05:17 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:31:31 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	leaf_stdout(t_cmd *cmd2, t_ast *root, t_ast *save_root)
 	}
 }
 
-void	exec_pipe_leaf(t_ast *root, char **envp, int *return_value,
+void	exec_pipe_leaf(t_ast *root, char ***envp, int *return_value,
 		t_save_struct *tstruct)
 {
 	t_cmd	*cmd1;
@@ -58,30 +58,30 @@ void	exec_pipe_leaf(t_ast *root, char **envp, int *return_value,
 		last_pipe(root, cmd2, return_value);
 }
 
-void	and_or_leaf(t_ast *root, char **envp, t_save_struct *tstruct,
+void	and_or_leaf(t_ast *root, char ***envp, t_save_struct *tstruct,
 		int *return_value)
 {
 	if (root->cmd->type == AND)
 	{
-		*return_value = ft_execve_single_cmd(root->left->cmd, &envp, tstruct);
+		*return_value = ft_execve_single_cmd(root->left->cmd, envp, tstruct);
 		if (*return_value == 0)
 		{
-			*return_value = ft_execve_single_cmd(root->right->cmd, &envp,
+			*return_value = ft_execve_single_cmd(root->right->cmd, envp,
 					tstruct);
 		}
 	}
 	else if (root->cmd->type == OR)
 	{
-		*return_value = ft_execve_single_cmd(root->left->cmd, &envp, tstruct);
+		*return_value = ft_execve_single_cmd(root->left->cmd, envp, tstruct);
 		if (*return_value != 0)
 		{
-			*return_value = ft_execve_single_cmd(root->right->cmd, &envp,
+			*return_value = ft_execve_single_cmd(root->right->cmd, envp,
 					tstruct);
 		}
 	}
 }
 
-int	exec_leaf(t_ast *root, char **envp, int return_value,
+int	exec_leaf(t_ast *root, char ***envp, int return_value,
 		t_save_struct *tstruct)
 {
 	if (root->cmd->type == WORD)

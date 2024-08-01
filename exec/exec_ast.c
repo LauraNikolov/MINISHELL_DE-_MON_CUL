@@ -6,14 +6,14 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 18:33:30 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/07/29 13:22:47 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:26:39 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #include <errno.h>
 
-static void	ft_handle_ast_recursive_pipe(t_ast *root, char **envp,
+static void	ft_handle_ast_recursive_pipe(t_ast *root, char ***envp,
 		int *return_value, t_save_struct *tstruct)
 {
 	root->right->cmd->prev_fd = root->left->cmd->prev_fd;
@@ -21,13 +21,13 @@ static void	ft_handle_ast_recursive_pipe(t_ast *root, char **envp,
 			tstruct);
 }
 
-void	ft_handle_ast_recursive(t_ast *root, char **envp, int *return_value,
+void	ft_handle_ast_recursive(t_ast *root, char ***envp, int *return_value,
 		t_save_struct *tstruct)
 {
 	if (root->cmd->type == AND || root->cmd->type == OR)
 	{
 		if (root->left->cmd->type == WORD)
-			*return_value = ft_execve_single_cmd(root->left->cmd, &envp,
+			*return_value = ft_execve_single_cmd(root->left->cmd, envp,
 					tstruct);
 	}
 	if (root->cmd->type == AND)
@@ -50,14 +50,14 @@ void	ft_handle_ast_recursive(t_ast *root, char **envp, int *return_value,
 		ft_handle_ast_recursive_pipe(root->right, envp, return_value, tstruct);
 }
 
-void	ft_handle_exec_and_or(t_ast *root, char **envp, int *return_value,
+void	ft_handle_exec_and_or(t_ast *root, char ***envp, int *return_value,
 		t_save_struct *tstruct)
 {
 	if (root->cmd->type == AND)
 	{
 		if (*return_value == 0)
 		{
-			*return_value = ft_execve_single_cmd(root->right->cmd, &envp,
+			*return_value = ft_execve_single_cmd(root->right->cmd, envp,
 					tstruct);
 		}
 	}
@@ -65,13 +65,13 @@ void	ft_handle_exec_and_or(t_ast *root, char **envp, int *return_value,
 	{
 		if (*return_value != 0)
 		{
-			*return_value = ft_execve_single_cmd(root->right->cmd, &envp,
+			*return_value = ft_execve_single_cmd(root->right->cmd, envp,
 					tstruct);
 		}
 	}
 }
 
-void	ft_handle_exec(t_ast *root, char **envp, int *return_value,
+void	ft_handle_exec(t_ast *root, char ***envp, int *return_value,
 		t_save_struct *tstruct)
 {
 	if (root->cmd->type == PIPE)
@@ -96,7 +96,7 @@ void	ft_handle_exec(t_ast *root, char **envp, int *return_value,
 	ft_handle_exec_and_or(root, envp, return_value, tstruct);
 }
 
-int	exec_ast_recursive(t_ast *root, char **envp, int return_value,
+int	exec_ast_recursive(t_ast *root, char ***envp, int return_value,
 		t_save_struct *tstruct)
 {
 	if (root == NULL)

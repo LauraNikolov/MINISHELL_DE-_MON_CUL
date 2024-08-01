@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:56:13 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/07/29 15:30:08 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:23:47 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	destroy_tmp_file(t_cmd *cmd)
 	}
 }
 
-void	ft_exec(t_save_struct *tstruct, char **envp)
+void	ft_exec(t_save_struct *tstruct, char ***envp)
 {
 	int	cmd_size;
 	int	return_value;
@@ -102,7 +102,7 @@ void	ft_exec(t_save_struct *tstruct, char **envp)
 		tstruct->cmd->std_out = 1;
 		manage_heredoc(tstruct->cmd, tstruct);
 		if(g_exit_status != 5)
-			return_value = ft_execve_single_cmd(tstruct->cmd, &envp, tstruct);
+			return_value = ft_execve_single_cmd(tstruct->cmd, envp, tstruct);
 		close_fds(tstruct->cmd);
 		ft_return_code(ft_itoa(return_value), &tstruct->envp);
 		destroy_tmp_file(tstruct->cmd);

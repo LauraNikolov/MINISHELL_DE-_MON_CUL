@@ -6,13 +6,13 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 17:08:30 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/07/29 13:22:47 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:29:27 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_pipe_recursive(t_ast *root, char **envp, int return_value,
+int	ft_pipe_recursive(t_ast *root, char ***envp, int return_value,
 		t_save_struct *tstruct)
 {
 	if (root->right->cmd->type == PIPE || root->right->cmd->type == AND
@@ -35,12 +35,12 @@ int	ft_pipe_recursive(t_ast *root, char **envp, int return_value,
 	return (return_value);
 }
 
-int	ft_pipe(t_ast *root, char **envp, int return_value, t_save_struct *tstruct)
+int	ft_pipe(t_ast *root, char ***envp, int return_value, t_save_struct *tstruct)
 {
 	return (ft_pipe_recursive(root, envp, return_value, tstruct));
 }
 
-int	ft_and_recursive(t_ast *root, char **envp, int return_value,
+int	ft_and_recursive(t_ast *root, char ***envp, int return_value,
 		t_save_struct *tstruct)
 {
 	if (root->right->cmd->type == PIPE || root->right->cmd->type == AND
@@ -56,7 +56,7 @@ int	ft_and_recursive(t_ast *root, char **envp, int return_value,
 	{
 		if (return_value == 0)
 		{
-			return_value = ft_execve_single_cmd(root->right->cmd, &envp,
+			return_value = ft_execve_single_cmd(root->right->cmd, envp,
 					tstruct);
 		}
 		else
@@ -65,12 +65,12 @@ int	ft_and_recursive(t_ast *root, char **envp, int return_value,
 	return (return_value);
 }
 
-int	ft_and(t_ast *root, char **envp, int return_value, t_save_struct *tstruct)
+int	ft_and(t_ast *root, char ***envp, int return_value, t_save_struct *tstruct)
 {
 	return (ft_and_recursive(root, envp, return_value, tstruct));
 }
 
-int	ft_or_recursive(t_ast *root, char **envp, int return_value,
+int	ft_or_recursive(t_ast *root, char ***envp, int return_value,
 		t_save_struct *tstruct)
 {
 	if (root->right->cmd->type == PIPE || root->right->cmd->type == AND
@@ -88,7 +88,7 @@ int	ft_or_recursive(t_ast *root, char **envp, int return_value,
 	{
 		if (return_value != 0)
 		{
-			return_value = ft_execve_single_cmd(root->right->cmd, &envp,
+			return_value = ft_execve_single_cmd(root->right->cmd, envp,
 					tstruct);
 		}
 		else

@@ -6,53 +6,54 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:18:04 by melmarti          #+#    #+#             */
-/*   Updated: 2024/07/29 13:18:22 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/01 21:18:28 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-static void	ft_remove_var(t_envp *node)
+static void ft_remove_var(t_envp *node)
 {
-	if (!node)
-		return ;
-	if (node->next)
-		node->next->prev = node->prev;
-	else
-		node->prev->next = NULL;
-	if (node->prev)
-		node->prev->next = node->next;
-	else
-		node->next->prev = NULL;
-	free(node->var_name);
-	free(node->var_value);
-	free(node);
+    if (!node)
+        return;
+
+    // Met à jour les liens des nœuds adjacents
+    if (node->prev)
+        node->prev->next = node->next;
+    if (node->next)
+        node->next->prev = node->prev;
+
+    // Libère la mémoire
+    free(node->var_name);
+    free(node->var_value);
+    free(node);
 }
 
-int	ft_unset(char **var, t_envp **env)
+int ft_unset(char **var, t_envp **env)
 {
-	t_envp	*curr;
-	t_envp	*temp;
-	int		i;
+    t_envp  *curr;
+    t_envp  *temp;
+    int     i;
 
-	curr = *env;
-	while (curr)
-	{
-		i = 0;
-		temp = curr->next;
-		while (var[++i])
-		{
-			if (!ft_strcmp(curr->var_name, var[i]))
-			{
-				if (!curr->prev)
-				{
-					*env = curr->next;
-					(*env)->prev = NULL;
-				}
-				ft_remove_var(curr);
-			}
-		}
-		curr = temp;
-	}
-	return (ft_return_code(ft_strdup("0"), env));
+    curr = *env;
+    while (curr)
+    {
+        i = -1;
+        temp = curr->next;
+        while (var[++i])
+        {
+            if (!ft_strcmp(curr->var_name, var[i]))
+            {
+                if (curr == *env)
+                {
+                    *env = curr->next;
+                    if (*env)
+                        (*env)->prev = NULL;
+                }
+                ft_remove_var(curr);
+                break;  // Sort de la boucle interne après suppression
+            }
+        }
+        curr = temp;
+    }
+    return (ft_return_code(ft_strdup("0"), env));
 }

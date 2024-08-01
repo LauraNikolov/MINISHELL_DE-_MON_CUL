@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 14:41:19 by lauranicolo       #+#    #+#             */
-/*   Updated: 2024/07/29 15:29:18 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:29:57 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,19 +101,19 @@ void	ft_safe_free(char **s);
 void	ft_override_content(char **s1, char *s2);
 void	ft_swap_content(char **s1, char **s2);
 int		ft_is_str(char c, char *s);
-char	**ft_envp_to_char(t_envp *env);
+char	**ft_envp_to_char(t_save_struct *tstruct);
 
 // exec
-void	ft_exec(t_save_struct *tstruct, char **envp);
+void	ft_exec(t_save_struct *tstruct, char ***envp);
 int		ft_exec_single_cmd(t_save_struct *tstruct, char **envp);
-void	ft_exec_multi_cmds(t_save_struct *tstruct, char **envp);
+void	ft_exec_multi_cmds(t_save_struct *tstruct, char ***envp);
 t_ast	*build_ast_recursive(t_cmd *start, t_cmd *end, t_ast *parent,
 			t_save_struct *tstruct);
 t_ast	*create_ast_node(t_cmd *node, t_ast *parent, t_save_struct *tstruct);
-int		exec_ast_recursive(t_ast *root, char **envp, int return_value,
+int		exec_ast_recursive(t_ast *root, char ***envp, int return_value,
 			t_save_struct *tstruct);
 int		ft_exec_tree(t_ast *root);
-int		exec_leaf(t_ast *root, char **envp, int return_value,
+int		exec_leaf(t_ast *root, char ***envp, int return_value,
 			t_save_struct *tstruct);
 void	ft_parse_error(t_cmd *cmd);
 int		redir_out(t_cmd *cmd);
@@ -127,7 +127,7 @@ int		recursive_free_ast(t_ast **ast);
 int		ft_nbr_of_cmd(t_cmd *cmd);
 char	*create_here_doc(char *str, char *limiter);
 int		wait_for_child(t_cmd *cmd, int *return_value);
-int		ft_execve_pipe(t_cmd *cmd, char **envp, t_ast *root,
+int		ft_execve_pipe(t_cmd *cmd, char ***envp, t_ast *root,
 			t_save_struct *tstruct);
 int		get_return_code(t_cmd *cmd);
 void	pipe_error(void);
@@ -136,17 +136,17 @@ int		open_redir_rappend(t_redir *current, int *fd_in, int *fd_out);
 int		open_redir_rout(t_redir *current, int *fd_in, int *fd_out);
 int		open_redir_in(t_redir *current, int *fd_in, int *fd_out);
 void	exit_error(char *str, t_save_struct *tstruct);
-int		ft_or(t_ast *root, char **envp, int return_value,
+int		ft_or(t_ast *root, char ***envp, int return_value,
 			t_save_struct *tstruct);
-int		ft_or_recursive(t_ast *root, char **envp, int return_value,
+int		ft_or_recursive(t_ast *root, char ***envp, int return_value,
 			t_save_struct *tstruct);
-int		ft_and(t_ast *root, char **envp, int return_value,
+int		ft_and(t_ast *root, char ***envp, int return_value,
 			t_save_struct *tstruct);
-int		ft_and_recursive(t_ast *root, char **envp, int return_value,
+int		ft_and_recursive(t_ast *root, char ***envp, int return_value,
 			t_save_struct *tstruct);
-int		ft_pipe(t_ast *root, char **envp, int return_value,
+int		ft_pipe(t_ast *root, char ***envp, int return_value,
 			t_save_struct *tstruct);
-int		ft_pipe_recursive(t_ast *root, char **envp, int return_value,
+int		ft_pipe_recursive(t_ast *root, char ***envp, int return_value,
 			t_save_struct *tstruct);
 t_cmd	*get_last_cmd(t_ast *node);
 

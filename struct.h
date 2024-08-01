@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:15:39 by melmarti          #+#    #+#             */
-/*   Updated: 2024/07/29 14:15:42 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:58:59 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_exec
 typedef struct s_save_struct
 {
 	char			*save_spaces;
+	char			**envp_to_char;
 	int				redir_flag;
 	struct t_ast	*save_root;
 	struct s_cmd	*cmd;

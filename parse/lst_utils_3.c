@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:35 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 14:13:22 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:40:49 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	ft_free_node(t_cmd *node)
 	if (node->cmd)
 		ft_free_tab(node->cmd);
 	free(node->path);
+	free(node->exp_code);
 	free(node);
 }
 

@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 12:09:11 by melmarti          #+#    #+#             */
-/*   Updated: 2024/07/29 17:01:54 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:06:04 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ int	main(int ac, char **av, char **envp)
 				ft_all_free(tstruct, 1, &buffer), 0);
 		add_history(buffer);
 		if (ft_tokenize(buffer, tstruct, &env) != -1)
-			ft_exec(tstruct, ft_envp_to_char(tstruct->envp));
+		{
+			char **envp1 = ft_envp_to_char(tstruct);
+			ft_exec(tstruct, &envp1);
+		}
+			
 		ft_all_free(tstruct, 0, &buffer);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:29:55 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 15:40:18 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/01 20:47:20 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	ft_encode_expand(char **exp_code, char c, int quote_flag,
 			(*exp_code)[0] = '0';
 		else
 			(*exp_code)[0] = '1';
+		// (*exp_code)[1] = '\0';
 		return ;
 	}
 	len = ft_strlen(*exp_code);

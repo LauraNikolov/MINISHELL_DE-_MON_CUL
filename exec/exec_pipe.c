@@ -6,7 +6,7 @@
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:39:28 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/07/29 14:09:19 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:30:22 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	close_pipe_parent(t_cmd *cmd, t_ast *root)
 		root->cmd->prev_fd = root->cmd->pipe[0];
 }
 
-void	execve_pipe(t_cmd *cmd, char **envp)
+void	execve_pipe(t_cmd *cmd, char ***envp)
 {
-	if (execve(cmd->path, cmd->cmd, envp) == -1)
+	if (execve(cmd->path, cmd->cmd, *envp) == -1)
 		ft_parse_error(cmd);
 	else
 		exit(-1);
@@ -53,7 +53,7 @@ void	set_pipe_redir(t_cmd *cmd, t_ast *root)
 	}
 }
 
-int	ft_execve_pipe(t_cmd *cmd, char **envp, t_ast *root, t_save_struct *tstruct)
+int	ft_execve_pipe(t_cmd *cmd, char ***envp, t_ast *root, t_save_struct *tstruct)
 {
 	int	return_value;
 
