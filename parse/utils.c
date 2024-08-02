@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:48 by renard            #+#    #+#             */
-/*   Updated: 2024/08/01 19:07:49 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/02 14:06:30 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,22 @@ void	ft_free_tab(char **split)
 	}
 	free(split);
 	split = NULL;
+}
+
+int	ft_is_special_c(char c)
+{
+	int		i;
+	char	*s;
+
+	i = 0;
+	s = "!@#$%^&()-+={}[]:;'\",<>/\?|~. * ";
+	while (s[i])
+	{
+		if (s[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 void	ft_swap_content(char **s1, char **s2)

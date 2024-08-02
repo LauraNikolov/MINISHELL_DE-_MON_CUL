@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicolof <lnicolof@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 14:41:19 by lauranicolo       #+#    #+#             */
-/*   Updated: 2024/08/02 12:07:55 by lnicolof         ###   ########.fr       */
+/*   Updated: 2024/08/02 14:11:34 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void		ft_cpy_expand(char *s, t_data_parsing *data, t_envp **env,
 int			ft_cpy_expand_2(char *s, char **exp, int *j, t_envp **env);
 int			ft_expand_len(char *s, t_envp **env, char **exp_code);
 int			ft_expand_math(char *s, t_envp **env, int len);
-int			ft_bad_subst(char *s);
+int			ft_is_special_c(char c);
 
 // lst_proto
 void		ft_save_envp(char **envp_tab, t_envp **envp_lst);

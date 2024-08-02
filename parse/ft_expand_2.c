@@ -6,7 +6,7 @@
 /*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:00 by renard            #+#    #+#             */
-/*   Updated: 2024/08/02 11:16:05 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 14:21:15 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_expand_len(char *s, t_envp **env, char **exp_code)
 			if (*exp_code && (*exp_code)[j] == '1')
 			{
 				len = 1;
-				while (s[i + len] && !ft_is_str(s[i + len], "\'\" $}"))
+				while (s[i + len] && !ft_is_special_c(s[i + len]))
 					len++;
 				total_var_len += ft_expand_math(&s[i + 1], env, len - 1);
 				i += len - 1;
@@ -66,7 +66,7 @@ int	ft_cpy_expand_2(char *s, char **exp, int *j, t_envp **env)
 	index = 0;
 	i = 0;
 	len = 1;
-	while (s[i + len] && !ft_is_str(s[i + len], "\'\" $}"))
+	while (s[i + len] && !ft_is_special_c(s[i + len]))
 		len++;
 	var = ft_strndup(&s[i + 1], len - 1);
 	var_value = ft_search_var(var, env);
