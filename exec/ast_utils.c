@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:45:40 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/07/29 13:22:47 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:07:20 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,52 +30,11 @@ t_ast	*create_ast_node(t_cmd *cmd, t_ast *parent, t_save_struct *tstruct)
 	return (node);
 }
 
-// const char	*cmd_type_to_string(enum s_token_type type)
-// {
-// 	switch (type)
-// 	{
-// 	case AND:
-// 		return ("AND");
-// 	case OR:
-// 		return ("OR");
-// 	case PIPE:
-// 		return ("PIPE");
-// 	case WORD:
-// 		return ("COMMAND");
-// 		default:
-// 		return ("UNKNOWN");
-// 	}
-// }
-
 void	join_tree(t_ast *left, t_ast *right, t_ast *root)
 {
 	root->left = left;
 	root->right = right;
 }
-
-// void	print_ast(t_ast *root, int depth, char prefix)
-// {
-// 	if (root == NULL)
-// 	{
-// 		return ;
-// 	}
-// 	if (depth > 0)
-// 	{
-// 		printf("%*s", depth * 4, "");
-// 		printf("%c--- ", prefix);
-// 	}
-// 	if (root->cmd->cmd[0] && root->cmd->type == WORD)
-// 	{
-// 		printf("%s: %s\n", cmd_type_to_string(root->cmd->type),
-// 			root->cmd->cmd[0]);
-// 	}
-// 	else
-// 	{
-// 		printf("%s\n", cmd_type_to_string(root->cmd->type));
-// 	}
-// 	print_ast(root->left, depth + 1, '|');
-// 	print_ast(root->right, depth + 1, '`');
-// }
 
 static t_cmd	*find_logical_root(t_cmd *start, t_cmd *end)
 {
@@ -110,7 +69,6 @@ static t_cmd	*find_pipe_root(t_cmd *start, t_cmd *end)
 	return (NULL);
 }
 
-// Fonction principale
 t_ast	*build_ast_recursive(t_cmd *start, t_cmd *end, t_ast *parent,
 		t_save_struct *tstruct)
 {

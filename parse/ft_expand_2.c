@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:00 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 15:13:24 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:16:05 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	ft_bad_subst(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] && ft_isalnum(s[i]))
-		i++;
-	if (s[i] != '}' || i == 0)
-		return (1);
-	return (0);
-}
 
 int	ft_expand_math(char *s, t_envp **env, int len)
 {
@@ -94,8 +82,8 @@ int	ft_cpy_expand_2(char *s, char **exp, int *j, t_envp **env)
 void	ft_cpy_expand(char *s, t_data_parsing *data, t_envp **env,
 		char **exp_code)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	j = 0;
 	i = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:05 by renard            #+#    #+#             */
-/*   Updated: 2024/08/01 20:59:17 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:21:25 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,16 @@ int	ft_access(t_cmd *node, char **abs_path)
 		ft_safe_free(abs_path);
 	}
 	return (0);
+}
+
+void	ft_get_path_2(int flag, char **path, char ***bin, char *s)
+{
+	if (!flag)
+	{
+		ft_safe_free(path);
+		*path = ft_strdup(s);
+	}
+	ft_free_tab(*bin);
 }
 
 void	ft_get_path(t_cmd *node, t_save_struct *tstruct)
@@ -52,11 +62,6 @@ void	ft_get_path(t_cmd *node, t_save_struct *tstruct)
 				break ;
 			}
 		}
-		if (!flag)
-		{
-			ft_safe_free(&node->path);
-			node->path = ft_strdup(node->cmd[0]);
-		}
-		ft_free_tab(bin);
+		ft_get_path_2(flag, &node->path, &bin, node->cmd[0]);
 	}
 }

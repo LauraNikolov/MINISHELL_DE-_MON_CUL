@@ -6,7 +6,7 @@
 /*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:18:04 by melmarti          #+#    #+#             */
-/*   Updated: 2024/08/02 01:39:27 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 11:14:58 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	ft_link_var(t_envp *node)
 
 static void	ft_remove_var(t_envp *curr, t_envp **env, t_save_struct *tstruct)
 {
-	tstruct->envp = curr->next;
+	tstruct->envp = tstruct->envp->next;
 	*env = curr->next;
 	ft_free_envp_node(curr);
 	if (*env)

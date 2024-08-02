@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_envp_to_char.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 13:53:09 by melmarti          #+#    #+#             */
-/*   Updated: 2024/08/01 19:06:58 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:04:50 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,26 @@ static int	ft_var_size(t_envp *node)
 	return (len + 1);
 }
 
+static void	ft_cpy_envp(t_envp *env, char **envp, int *j)
+{
+	int	l;
+	int	k;
+
+	k = 0;
+	l = 0;
+	while (env->var_name[l])
+		envp[*j][k++] = env->var_name[l++];
+	envp[*j][k++] = '=';
+	l = 0;
+	if (env->var_value)
+		while (env->var_value[l])
+			envp[*j][k++] = env->var_value[l++];
+	envp[*j][k] = '\0';
+}
+
 static char	**ft_split_envp(char ***env1, t_envp *env)
 {
 	int		j;
-	int		l;
-	int		k;
 	char	**envp;
 
 	envp = *env1;
@@ -68,16 +83,7 @@ static char	**ft_split_envp(char ***env1, t_envp *env)
 		envp[j] = malloc(sizeof(char) * (ft_var_size(env) + 1));
 		if (!*envp)
 			return (NULL);
-		k = 0;
-		l = 0;
-		while (env->var_name[l])
-			envp[j][k++] = env->var_name[l++];
-		envp[j][k++] = '=';
-		l = 0;
-		if (env->var_value)
-			while (env->var_value[l])
-				envp[j][k++] = env->var_value[l++];
-		envp[j][k] = '\0';
+		ft_cpy_envp(env, envp, &j);
 		env = env->next;
 		j++;
 	}
