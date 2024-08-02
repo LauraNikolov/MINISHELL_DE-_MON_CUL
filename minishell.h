@@ -6,7 +6,7 @@
 /*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 14:41:19 by lauranicolo       #+#    #+#             */
-/*   Updated: 2024/08/02 14:11:34 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 14:30:22 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_envp		*create_envp_node(char *var_name, int print_flag);
 void		ft_free_tab(char **split);
 void		ft_free_lst(t_cmd *lst);
 void		ft_free_envp_lst(t_envp *lst, t_envp **env);
-void		ft_all_free(t_save_struct *tstruct, int flag, char **buff);
+void		ft_all_free(t_save_struct *tstruct, int flag, char **buff, t_envp **env);
 int			ft_lst_size(t_cmd *cmd);
 void		ft_print_env(t_envp **env);
 void		ft_sort_env(t_envp **env);

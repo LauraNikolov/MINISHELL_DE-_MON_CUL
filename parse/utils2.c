@@ -3,21 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:51 by renard            #+#    #+#             */
-/*   Updated: 2024/08/01 18:47:12 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/02 14:30:57 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_all_free(t_save_struct *tstruct, int flag, char **buff)
+void	ft_all_free(t_save_struct *tstruct, int flag, char **buff, t_envp **env)
 {
 	if (flag)
+	{
+		*env = tstruct->envp;
 		ft_safe_free(buff);
+	}
 	ft_free_lst(tstruct->cmd);
-	if(tstruct->envp_to_char)
+	if (tstruct->envp_to_char)
 		ft_free_tab(tstruct->envp_to_char);
 	ft_safe_free(&tstruct->save_spaces);
 	free(tstruct);

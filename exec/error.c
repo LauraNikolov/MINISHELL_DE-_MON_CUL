@@ -6,7 +6,7 @@
 /*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 11:37:50 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/08/02 09:17:52 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 14:31:51 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ void	exit_error(char *str, t_save_struct *t_struct)
 {
 	ft_putstr_fd(str, 2);
 	ft_free_envp_lst(t_struct->envp, NULL);
-	ft_all_free(t_struct, 0, NULL);
+	ft_all_free(t_struct, 0, NULL, NULL);
 	exit(134);
 }
