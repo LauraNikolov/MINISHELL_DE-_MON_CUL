@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_wildcard.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:30 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 13:24:39 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/02 10:29:46 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,14 @@ char	**ft_new_args(char **cmd)
 		{
 			wild_len = get_wild_len(cmd[i]);
 			len = ft_count_tab(cmd) + wild_len;
-			new_tab = ft_calloc(sizeof(char *), len + wild_len);
+			new_tab = ft_calloc(sizeof(char *), (len + wild_len) + 1);
 			if (!new_tab)
 				return (NULL);
 			new_tab = ft_cpy_match(i, new_tab, cmd);
 			ft_free_tab(cmd);
 			cmd = ft_strdup_array(new_tab);
 			ft_free_tab(new_tab);
+			i = -1;
 		}
 	}
 	return (cmd);
