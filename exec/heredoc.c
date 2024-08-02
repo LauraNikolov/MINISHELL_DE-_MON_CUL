@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicolof <lnicolof@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:39:53 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/08/02 12:28:20 by lnicolof         ###   ########.fr       */
+/*   Updated: 2024/08/02 13:55:56 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,18 @@ static void	handle_heredoc(t_redir *redir, int i, t_save_struct *t_struct)
 {
 	char	*heredocname;
 	char	*new_i;
+	char	*limiter;
 
+	limiter = ft_strdup(redir->next->redir);
+	free(redir->next->redir);
+	redir->next->redir = NULL;
 	new_i = ft_itoa(i);
 	heredocname = ft_strjoin(new_i, "heredoctmp");
 	free(new_i);
 	if (redir->type == R_HEREDOC)
 	{
 		free(redir->next->redir);
-		redir->next->redir = create_here_doc(heredocname, redir->next->redir);
+		redir->next->redir = create_here_doc(heredocname, limiter);
 		if (!redir->next->redir)
 			exit_error("heredoc failed\n", t_struct);
 	}
@@ -108,4 +112,3 @@ void	manage_heredoc(t_cmd *cmd, t_save_struct *t_struct)
 		current = current->next;
 	}
 }
-

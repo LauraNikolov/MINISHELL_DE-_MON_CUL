@@ -6,7 +6,7 @@
 /*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:30 by renard            #+#    #+#             */
-/*   Updated: 2024/08/02 10:29:46 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 12:58:43 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ static void	ft_readdir(char ***new_tab, char **cmd, int *j, int i)
 {
 	struct dirent	*entry;
 	DIR				*dir;
+	int				flag;
 
+	flag = 0;
 	dir = opendir(".");
 	entry = readdir(dir);
 	while (entry)
@@ -43,10 +45,15 @@ static void	ft_readdir(char ***new_tab, char **cmd, int *j, int i)
 		if (entry->d_name[0] != '.')
 		{
 			if (ft_match(cmd[i], entry->d_name))
+			{
+				flag = 1;
 				(*new_tab)[(*j)++] = ft_strdup(entry->d_name);
+			}
 		}
 		entry = readdir(dir);
 	}
+	if (!flag)
+		(*new_tab)[(*j)++] = ft_strdup(cmd[i]);
 	closedir(dir);
 }
 
@@ -89,7 +96,6 @@ char	**ft_new_args(char **cmd)
 			ft_free_tab(cmd);
 			cmd = ft_strdup_array(new_tab);
 			ft_free_tab(new_tab);
-			i = -1;
 		}
 	}
 	return (cmd);

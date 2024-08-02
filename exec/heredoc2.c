@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lnicolof <lnicolof@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 12:06:17 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/08/02 12:17:29 by lnicolof         ###   ########.fr       */
+/*   Updated: 2024/08/02 13:55:21 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,18 @@
 int	ft_limiter(char *s1, char *s2)
 {
 	int	i;
-	int	y;
+	int	len;
 
+	len = ft_strlen(s1);
 	i = 0;
-	y = 0;
 	while (s2[i])
 	{
-		y = 0;
-		while (s2[i] == s1[y] && s1[y] && s2[i])
+		if (!ft_strncmp(s1, &s2[i], len))
 		{
-			i++;
-			y++;
-			if (y == (int)ft_strlen(s1))
+			if (len == (int)ft_strlen(s2) - 1)
 				return (1);
+			else
+				return (0);
 		}
 		i++;
 	}
@@ -40,5 +39,5 @@ void	heredoc_parent(pid_t pid, int file)
 	ft_signal(3);
 	waitpid(pid, &g_exit_status, 0);
 	close(file);
-    write(1, "\n", 1);
+	write(1, "\n", 1);
 }
