@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_single_cmd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 16:05:37 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/08/01 18:58:58 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/02 09:25:13 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	ft_execve_single_cmd(t_cmd *cmd, char ***envp, t_save_struct *tstruct)
 	{
 		if (apply_redir(cmd) == -1)
 			return (ft_return_code(ft_strdup("1"), &tstruct->envp));
-		return_value = ft_dispatch_builtin(cmd, tstruct);
+		return_value = ft_dispatch_builtin(cmd, tstruct, 0);
 		if (return_value != -1)
 		{
 			if (update_envp(envp, tstruct) == -1)

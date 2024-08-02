@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dispatch_builtin.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:17:27 by melmarti          #+#    #+#             */
-/*   Updated: 2024/07/29 13:22:47 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/02 01:49:24 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_dispatch_builtin(t_cmd *cmd, t_save_struct *tstruct)
+int	ft_dispatch_builtin(t_cmd *cmd, t_save_struct *tstruct, int flag)
 {
 	if (!tstruct->cmd->cmd)
 		return (-1);
 	if (!ft_strcmp(cmd->cmd[0], "echo"))
-		return (ft_echo(cmd, &tstruct->envp));
+		return (ft_echo(cmd, &tstruct->envp, flag));
 	else if (!ft_strcmp(cmd->cmd[0], "export"))
 		return (ft_export(cmd, &tstruct->envp));
 	else if (!ft_strcmp(cmd->cmd[0], "exit"))
 		return (ft_exit(tstruct, &tstruct->envp));
 	else if (!ft_strcmp(cmd->cmd[0], "unset"))
-		return (ft_unset(cmd->cmd, &tstruct->envp));
+		return (ft_unset(cmd->cmd, &tstruct->envp, tstruct));
 	else if (!ft_strcmp(cmd->cmd[0], "env"))
 		return (ft_env(&tstruct->envp));
 	else if (!ft_strcmp(cmd->cmd[0], "pwd"))

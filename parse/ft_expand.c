@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:03 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 14:05:47 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/02 00:17:40 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,12 @@ static void	ft_concat_return_var(char *s, t_envp **env, char **res)
 		{
 			var_value = ft_search_var("?", env);
 			k = 0;
-			while (var_value[k])
+			while (var_value[k] && *res)
 				(*res)[j++] = var_value[k++];
 			i += 2;
 		}
-		(*res)[j++] = s[i++];
+		else
+			(*res)[j++] = s[i++];
 	}
 	(*res)[j] = '\0';
 }
@@ -80,12 +81,12 @@ static char	*ft_expand_return_var(char *s, t_envp **env, char **exp_code,
 	{
 		if (*exp_code && (*exp_code)[*l] == '1')
 		{
-			res = malloc(sizeof(char) * (ft_count_return_code(s, env + 1)));
+			res = malloc(sizeof(char) * (ft_count_return_code(s, env) + 1));
 			if (!res)
 				return (NULL);
 			ft_concat_return_var(s, env, &res);
 			(*l)++;
-			return (ft_strdup(res));
+			return (res);
 		}
 	}
 	return (ft_strdup(s));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 09:23:24 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 14:00:36 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/02 01:27:17 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	ft_exit_3(t_save_struct *tstruct, t_envp **envp, char **code)
 		ft_putstr_cmd_fd("Minishell: exit: ", 2, NULL, 2);
 		ft_putstr_cmd_fd(code[1], 2, NULL, 2);
 		ft_putstr_cmd_fd(": numeric argument required", 2, NULL, 0);
-		ft_free_envp_lst(envp, NULL);
+		ft_free_envp_lst(*envp, NULL);
 		ft_all_free(tstruct, 0, NULL);
 	}
 	else if (ft_str_isdigit(code[1]) || ft_atoll(code[1]) > LONG_MAX
@@ -30,7 +30,7 @@ static int	ft_exit_3(t_save_struct *tstruct, t_envp **envp, char **code)
 		ft_putstr_cmd_fd(code[1], 2, NULL, 2);
 		ft_putstr_cmd_fd(": numeric argument required", 2, NULL, 0);
 		ft_putstr_cmd_fd("Exit", 2, NULL, 0);
-		ft_free_envp_lst(envp, NULL);
+		ft_free_envp_lst(*envp, NULL);
 		ft_all_free(tstruct, 0, NULL);
 	}
 	exit(2);
@@ -44,7 +44,7 @@ static int	ft_exit_2(t_save_struct *tstruct, t_envp **envp, char **code)
 		ft_putstr_cmd_fd("Minishell: exit: ", 2, NULL, 2);
 		ft_putstr_cmd_fd(code[1], 2, NULL, 2);
 		ft_putstr_cmd_fd(": numeric argument required", 2, NULL, 0);
-		ft_free_envp_lst(envp, NULL);
+		ft_free_envp_lst(*envp, NULL);
 		ft_all_free(tstruct, 0, NULL);
 		exit(2);
 	}
@@ -75,7 +75,7 @@ static int	ft_valid_exit(t_save_struct *tstruct, char **code)
 		return_code = ft_atoi(code[1]) % 256;
 	else
 		return_code = ft_atoi(code[1]);
-	ft_free_envp_lst(envp, NULL);
+	ft_free_envp_lst(*envp, NULL);
 	ft_all_free(tstruct, 0, NULL);
 	exit(return_code);
 }
@@ -90,7 +90,7 @@ int	ft_exit(t_save_struct *tstruct, t_envp **envp)
 	{
 		ft_putstr_cmd_fd("Exit", 2, NULL, 0);
 		return_code = ft_atoi(ft_search_var("?", envp));
-		ft_free_envp_lst(envp, NULL);
+		ft_free_envp_lst(*envp, NULL);
 		ft_all_free(tstruct, 0, NULL);
 		exit(return_code);
 	}

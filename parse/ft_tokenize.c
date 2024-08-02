@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tokenize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:25 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 17:08:17 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/02 09:28:41 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		g_exit_status = 0;
+int g_exit_status;
 
 void	ft_handler_signals(int signal)
 {
@@ -56,7 +56,7 @@ void	ft_signal(int pid)
 		signal(SIGINT, SIG_IGN);
 	else if (pid == 2)
 		signal(SIGINT, SIG_DFL);
-	if (pid == 2 || pid == 3)
+	if (pid == 2)
 		g_exit_status = 5;
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_parse.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:56:13 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/08/01 18:23:47 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/02 09:27:10 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,6 @@
 #include <errno.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
-
-static void	error_exec_str(char *str, char *cmd, int exit_code)
-{
-	ft_putstr_fd("minishell :", 2);
-	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(str, 2);
-	exit(exit_code);
-}
-
-void	ft_parse_error(t_cmd *cmd)
-{
-	struct stat	buf;
-
-	if (stat(cmd->cmd[0], &buf) != -1)
-	{
-		if (((S_ISDIR(buf.st_mode)) && (!ft_strncmp("./", cmd->cmd[0], 2)))
-			|| (cmd->cmd[0][ft_strlen(cmd->cmd[0]) - 1] == '/'))
-			error_exec_str("Is a directory", cmd->cmd[0], 126);
-		if (!(buf.st_mode & S_IXUSR) || !(buf.st_mode & S_IRUSR)
-			|| !S_ISLNK(buf.st_mode) || !S_ISDIR(buf.st_mode))
-			error_exec_str("Permission denied\n", cmd->cmd[0], 126);
-	}
-	if (ft_strncmp("./", cmd->cmd[0], 2) == 0 || ft_strncmp("/", cmd->cmd[0],
-			1) == 0)
-		error_exec_str("No such file or directory\n", cmd->cmd[0], 127);
-	else
-		error_exec_str("command not found\n", cmd->cmd[0], 127);
-}
 
 void	close_fds(t_cmd *cmd_list)
 {

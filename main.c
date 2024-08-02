@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 12:09:11 by melmarti          #+#    #+#             */
-/*   Updated: 2024/08/01 19:06:04 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/02 01:33:54 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(int ac, char **av, char **envp)
 	char			*buffer;
 	t_envp			*env;
 	t_save_struct	*tstruct;
+	char			**envp1;
 
 	(void)av;
 	(void)ac;
@@ -27,20 +28,18 @@ int	main(int ac, char **av, char **envp)
 		ft_signal(1);
 		tstruct = malloc(sizeof(t_save_struct));
 		if (!tstruct)
-			return (ft_free_envp_lst(&env, NULL), 0);
+			return (ft_free_envp_lst(env, NULL), 0);
 		ft_memset(tstruct, 0, sizeof(*tstruct));
 		buffer = readline("minishell : ");
 		if (!buffer)
-			return (ft_free_envp_lst(&tstruct->envp, &env), free(buffer),
-				ft_all_free(tstruct, 1, &buffer), 0);
+			return (ft_free_envp_lst(tstruct->envp, &env), free(buffer), ft_all_free(tstruct, 0, NULL), 0);
 		add_history(buffer);
 		if (ft_tokenize(buffer, tstruct, &env) != -1)
 		{
-			char **envp1 = ft_envp_to_char(tstruct);
+			envp1 = ft_envp_to_char(tstruct);
 			ft_exec(tstruct, &envp1);
 		}
-			
-		ft_all_free(tstruct, 0, &buffer);
+		ft_all_free(tstruct, 1, &buffer);
 	}
 	return (0);
 }

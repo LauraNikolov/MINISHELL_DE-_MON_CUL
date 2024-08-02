@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils_3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:35 by renard            #+#    #+#             */
-/*   Updated: 2024/08/01 19:40:49 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/02 01:26:31 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,19 @@ int	ft_lst_size(t_cmd *cmd)
 	return (i);
 }
 
-void	ft_free_envp_lst(t_envp **lst, t_envp **env)
+void	ft_free_envp_lst(t_envp *lst, t_envp **env)
 {
-	t_envp	*curr;
 	t_envp	*temp;
 
-	if (!*lst)
-		ft_free_envp_lst(env, NULL);
-	curr = *lst;
-	while (curr)
+	if (!lst)
+		ft_free_envp_lst(*env, NULL);
+	while (lst)
 	{
-		temp = curr->next;
-		free(curr->var_name);
-		free(curr->var_value);
-		free(curr);
-		curr = temp;
+		temp = lst->next;
+		free(lst->var_name);
+		free(lst->var_value);
+		free(lst);
+		lst = temp;
 	}
 }
 
