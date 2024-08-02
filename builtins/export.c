@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:17:40 by melmarti          #+#    #+#             */
-/*   Updated: 2024/08/01 20:04:17 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:45:18 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,16 @@ void	ft_compare_var(t_envp **env, char *var)
 	ft_add_var(flag, var[i], var, env);
 }
 
-int	ft_fork_export(t_envp **env)
+int	ft_fork_export(t_envp **env, int fd)
 {
 	pid_t	pid;
 
 	pid = fork();
+	printf("fd = %d\n", fd);
 	if (pid == 0)
 	{
 		ft_sort_env(env);
-		ft_print_env(env);
+		ft_print_env(env, fd);
 		exit(0);
 	}
 	else

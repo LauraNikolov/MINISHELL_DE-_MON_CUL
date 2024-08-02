@@ -6,7 +6,7 @@
 /*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:39:53 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/08/02 13:55:56 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 15:20:09 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ static void	handle_heredoc(t_redir *redir, int i, t_save_struct *t_struct)
 		if (!redir->next->redir)
 			exit_error("heredoc failed\n", t_struct);
 	}
+	free(limiter);
 }
 
 static void	process_redirections(t_cmd *cmd, int *i, t_save_struct *t_struct)

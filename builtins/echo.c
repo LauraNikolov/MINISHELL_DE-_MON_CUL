@@ -6,7 +6,7 @@
 /*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 01:43:57 by renard            #+#    #+#             */
-/*   Updated: 2024/08/02 09:43:38 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 16:05:32 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,25 +106,42 @@ int	ft_echo(t_cmd *cmd, t_envp **env, int flag)
 	int	i;
 	int	fd;
 
-	(void)flag;
 	option = 0;
 	i = 0;
-	if (!cmd->redir)
-		fd = 1;
-	else
-		fd = redir_out(cmd);
+	if (!flag)
+	{
+		if (!cmd->redir)
+			fd = 1;
+		else if (cmd->std_out != STDOUT_FILENO)
+			fd = cmd->std_out;
+		else
+			fd = 1;
+	}
+	if (flag)
+	{
+		if(!cmd->redir)
+			fd = STDOUT_FILENO;
+		else
+			fd = redir_out(cmd);
+	}
 	if (!cmd->cmd[1])
 	{
 		ft_putchar_fd('\n', fd);
+		if (fd != STDOUT_FILENO && flag)
+			close(fd);
 		return (ft_return_code(ft_strdup("0"), env));
 	}
 	if ((!cmd->cmd[1] || !cmd->cmd || !*cmd->cmd))
 	{
 		ft_putchar_fd('\n', fd);
+		if (fd != STDOUT_FILENO && flag)
+			close(fd);
 		return (ft_return_code(ft_strdup("127"), env));
 	}
 	if (cmd->cmd[1])
 		i = ft_handle_option(cmd->cmd, &option);
 	ft_echo_str(cmd, option, i, fd);
+	if (fd != STDOUT_FILENO && flag)
+		close(fd);
 	return (ft_return_code(ft_strdup("0"), env));
 }

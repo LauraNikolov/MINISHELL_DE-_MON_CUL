@@ -6,7 +6,7 @@
 /*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 14:41:19 by lauranicolo       #+#    #+#             */
-/*   Updated: 2024/08/02 14:51:03 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 15:55:29 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void		ft_free_lst(t_cmd *lst);
 void		ft_free_envp_lst(t_envp *lst, t_envp **env);
 void		ft_all_free(t_save_struct *tstruct, int flag, char **buff, t_envp **env);
 int			ft_lst_size(t_cmd *cmd);
-void		ft_print_env(t_envp **env);
+void		ft_print_env(t_envp **env, int fd);
 void		ft_sort_env(t_envp **env);
 void		ft_free_redir(t_redir *redir);
 t_redir		*create_redir_node(char *s);
@@ -157,11 +157,11 @@ int			ft_limiter(char *s1, char *s2);
 void		heredoc_parent(pid_t pid, int file);
 
 // BUILTINS
-int			ft_fork_export(t_envp **env);
+int			ft_fork_export(t_envp **env, int fd);
 void		ft_compare_var(t_envp **env, char *var);
 int			ft_handle_export_err(char *var);
 int			ft_dispatch_builtin(t_cmd *cmd, t_save_struct *tstruct, int flag);
-int			ft_export(t_cmd *cmd, t_envp **env);
+int			ft_export(t_cmd *cmd, t_envp **env, int fd, int flag);
 int			ft_unset(char **var, t_envp **env, t_save_struct *tstruct);
 int			ft_env(t_envp **envp, t_cmd *node);
 int			ft_echo(t_cmd *cmd, t_envp **env, int flag);

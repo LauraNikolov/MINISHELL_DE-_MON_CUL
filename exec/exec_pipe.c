@@ -6,7 +6,7 @@
 /*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:39:28 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/08/02 09:23:53 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 15:31:42 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	ft_execve_pipe(t_cmd *cmd, char ***envp, t_ast *root,
 	{
 		set_pipe_redir(cmd, root);
 		close(root->cmd->pipe[0]);
-		return_value = ft_dispatch_builtin(cmd, t_struct, 0);
+		return_value = ft_dispatch_builtin(cmd, t_struct, 1);
 		if (return_value != -1)
 			exit(return_value);
 		else
