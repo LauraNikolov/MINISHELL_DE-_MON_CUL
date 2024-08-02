@@ -6,7 +6,7 @@
 /*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:42 by renard            #+#    #+#             */
-/*   Updated: 2024/08/02 10:27:46 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 10:34:22 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ int	ft_check_word(t_cmd *node, t_envp **env, t_save_struct *tstruct)
 	if (tstruct->cmd->cmd && tstruct->cmd->cmd[0]
 		&& tstruct->cmd->cmd[0][0] == '\t')
 		return (-1);
-	printf("node->cmd %s\n", node->cmd[0]);
 	if (!node->cmd)
 		return (0);
 	if (!node->next)
