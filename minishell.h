@@ -6,7 +6,7 @@
 /*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 14:41:19 by lauranicolo       #+#    #+#             */
-/*   Updated: 2024/08/02 15:55:29 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 16:41:31 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ t_envp		*create_envp_node(char *var_name, int print_flag);
 void		ft_free_tab(char **split);
 void		ft_free_lst(t_cmd *lst);
 void		ft_free_envp_lst(t_envp *lst, t_envp **env);
-void		ft_all_free(t_save_struct *tstruct, int flag, char **buff, t_envp **env);
+void		ft_all_free(t_save_struct *tstruct, int flag, char **buff,
+				t_envp **env);
 int			ft_lst_size(t_cmd *cmd);
 void		ft_print_env(t_envp **env, int fd);
 void		ft_sort_env(t_envp **env);
@@ -103,7 +104,7 @@ void		ft_override_content(char **s1, char *s2);
 void		ft_swap_content(char **s1, char **s2);
 int			ft_is_str(char c, char *s);
 char		**ft_envp_to_char(t_save_struct *tstruct);
-
+void		ft_set_fd(int flag, t_cmd *cmd, int *fd);
 // exec
 void		ft_exec(t_save_struct *tstruct, char ***envp);
 int			ft_exec_single_cmd(t_save_struct *tstruct, char **envp);
@@ -169,6 +170,7 @@ int			ft_exit(t_save_struct *tstruct, t_envp **envp);
 int			ft_print_envp(t_envp **envp, t_cmd *node);
 int			ft_pwd(char **cmd, t_envp **envp);
 int			ft_cd(t_save_struct *tstruct);
+int			ft_echo_return(int flag, int *fd, t_envp **env);
 
 // signal
 void		ft_signal(int pid);

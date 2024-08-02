@@ -77,3 +77,5 @@ VSCODE_INJECTION=1
 ZDOTDIR=/home/renard
 USER_ZDOTDIR=/home/renard
 _=/home/renard/mini_mon_fion/./minishell
+log4=
+log5=

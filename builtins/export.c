@@ -6,7 +6,7 @@
 /*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:17:40 by melmarti          #+#    #+#             */
-/*   Updated: 2024/08/02 15:45:18 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 16:34:54 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	ft_fork_export(t_envp **env, int fd)
 	pid_t	pid;
 
 	pid = fork();
-	printf("fd = %d\n", fd);
 	if (pid == 0)
 	{
 		ft_sort_env(env);

@@ -51,6 +51,7 @@ builtins/export_2.c \
 builtins/unset.c \
 builtins/ft_cd.c \
 builtins/ft_dispatch_builtin.c \
+builtins/echo_2.c \
 
 # Execution files
 EXEC_SRCS = exec/ast_utils.c \

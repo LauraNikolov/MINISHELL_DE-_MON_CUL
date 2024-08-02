@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:34:35 by melmarti          #+#    #+#             */
-/*   Updated: 2023/11/10 15:58:48 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/02 16:34:59 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,3 @@ int	ft_atoi(const char *s)
 	}
 	return (nbr * sign);
 }
-/*int	main(int ac, char *av[])
-{
-	if (ac == 2)
-	{
-		char *s = av[1];
-		printf("%d", ft_atoi(s));
-	}
-	else
-		return (0);
-}*/
