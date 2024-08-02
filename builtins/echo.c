@@ -6,7 +6,7 @@
 /*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 01:43:57 by renard            #+#    #+#             */
-/*   Updated: 2024/08/02 09:33:08 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 09:43:38 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	ft_echo_str(t_cmd *cmd, int option, int i, int fd)
 	while (cmd->cmd[i])
 	{
 		ft_putstr_fd(cmd->cmd[i], fd);
-		if (cmd->cmd[i][0] != ' ' && cmd->cmd[i + 1])
+		if (cmd->cmd[i][0] && cmd->cmd[i + 1])
 			ft_putchar_fd(' ', fd);
 		i++;
 	}
