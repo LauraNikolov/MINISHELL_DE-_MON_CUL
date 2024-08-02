@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:37 by renard            #+#    #+#             */
-/*   Updated: 2024/08/02 16:12:34 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 18:03:09 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,13 @@ static void	ft_print_envp_fd(t_envp **node, int fd)
 	}
 }
 
-int	ft_print_envp(t_envp **envp, t_cmd *node)
+int	ft_print_envp(t_envp **envp, t_cmd *node, int flag)
 {
 	t_envp	*curr;
 	int		fd;
 
-	fd = node->std_out;
+	fd = -1;
+	ft_set_fd(flag, node, &fd);
 	curr = *envp;
 	while (curr)
 	{
@@ -44,6 +45,8 @@ int	ft_print_envp(t_envp **envp, t_cmd *node)
 			ft_print_envp_fd(&curr, fd);
 		curr = curr->next;
 	}
+	if (fd != STDOUT_FILENO && flag)
+		close(fd);
 	return (0);
 }
 

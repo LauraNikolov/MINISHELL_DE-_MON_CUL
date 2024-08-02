@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   utils_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 13:17:00 by melmarti          #+#    #+#             */
-/*   Updated: 2024/08/02 18:04:00 by melmarti         ###   ########.fr       */
+/*   Created: 2024/08/02 17:45:35 by melmarti          #+#    #+#             */
+/*   Updated: 2024/08/02 17:46:15 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_env(t_envp **envp, t_cmd *node, int flag)
+int	ft_str_is_alpha(char *s)
 {
-	if (!*envp || !envp)
+	int	i;
+
+	i = 0;
+	while (s[i])
 	{
-		ft_putstr_fd("minishell , environment is empty or null", 2);
-		ft_return_code(ft_strdup("127"), envp);
+		if ((s[i] >= 'a' || s[i] <= 'z') || (s[i] >= 'A' || s[i] <= 'Z'))
+			return (1);
+		i++;
 	}
-	ft_print_envp(envp, node, flag);
 	return (0);
 }

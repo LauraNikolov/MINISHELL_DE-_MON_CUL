@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 01:43:57 by renard            #+#    #+#             */
-/*   Updated: 2024/08/02 16:43:50 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 17:59:17 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,6 @@ static int	ft_handle_option(char **cmd, int *option)
 	return (i);
 }
 
-
-
 int	ft_echo(t_cmd *cmd, t_envp **env, int flag)
 {
 	int	option;
@@ -110,6 +108,7 @@ int	ft_echo(t_cmd *cmd, t_envp **env, int flag)
 
 	option = 0;
 	i = 0;
+	fd = -1;
 	ft_set_fd(flag, cmd, &fd);
 	if (!cmd->cmd[1])
 	{

@@ -40,6 +40,7 @@ parse/syntax_functions2.c \
 parse/syntax_functions3.c \
 parse/utils.c \
 parse/utils2.c \
+parse/utils_3.c \
 
 # Builtins files
 BUILTINS_SRCS = builtins/echo.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:40 by renard            #+#    #+#             */
-/*   Updated: 2024/08/02 15:04:15 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 17:44:52 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int	ft_check_op(t_cmd *node, t_envp **env, t_save_struct *tstruct)
 	if (!node->prev || !node->next || node->next->type == AND
 		|| node->next->type == OR || node->next->type == PIPE)
 	{
-		ft_putstr_cmd_fd("minishell: syntax error near unexpected token `", STDERR_FILENO,
-			&node->cmd[0], 0);
+		ft_putstr_cmd_fd("minishell: syntax error near unexpected token `",
+			STDERR_FILENO, &node->cmd[0], 0);
 		return (ft_return_code(ft_strdup("2"), env));
 	}
 	return (0);

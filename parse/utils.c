@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:48 by renard            #+#    #+#             */
-/*   Updated: 2024/08/02 14:06:30 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 17:45:43 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,4 @@ void	ft_override_content(char **s1, char *s2)
 	free(*s1);
 	*s1 = NULL;
 	*s1 = ft_strdup(s2);
-}
-
-int	ft_str_is_alpha(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if ((s[i] >= 'a' || s[i] <= 'z') || (s[i] >= 'A' || s[i] <= 'Z'))
-			return (1);
-		i++;
-	}
-	return (0);
 }

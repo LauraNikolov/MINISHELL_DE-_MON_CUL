@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:04:50 by melmarti          #+#    #+#             */
-/*   Updated: 2024/08/02 16:48:17 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 18:24:48 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,18 @@ void	ft_print_env(t_envp **env, int fd)
 	}
 }
 
-int	ft_export(t_cmd *node, t_envp **env, int fd, int flag)
+int	ft_export(t_cmd *node, t_envp **env, int flag)
 {
 	int		i;
+	int		fd;
 	char	**var;
 
-	if (flag)
-		fd = STDOUT_FILENO;
+	fd = -1;
 	var = node->cmd;
 	if (!env || !*var)
 		return (0);
 	if (!var[1])
-		return (ft_fork_export(env, fd));
+		return (ft_fork_export(env, fd, flag, node));
 	i = 1;
 	while (var[i])
 	{

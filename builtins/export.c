@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:17:40 by melmarti          #+#    #+#             */
-/*   Updated: 2024/08/02 16:34:54 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 18:24:05 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,27 @@ void	ft_compare_var(t_envp **env, char *var)
 	ft_add_var(flag, var[i], var, env);
 }
 
-int	ft_fork_export(t_envp **env, int fd)
+int	ft_fork_export(t_envp **env, int fd, int flag, t_cmd *node)
 {
 	pid_t	pid;
 
+	ft_set_fd(flag, node, &fd);
 	pid = fork();
 	if (pid == 0)
 	{
+		dup2(fd, STDOUT_FILENO);
+		close(fd);
 		ft_sort_env(env);
 		ft_print_env(env, fd);
 		exit(0);
 	}
 	else
+	{
 		wait(NULL);
-	return (0);
+		if (fd != STDOUT_FILENO && flag)
+			close(fd);
+	}
+	return (ft_return_code(ft_strdup("0"), env));
 }
 
 int	ft_handle_export_err(char *var)

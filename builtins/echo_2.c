@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 16:43:25 by renard            #+#    #+#             */
-/*   Updated: 2024/08/02 16:44:57 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 17:55:37 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_set_fd(int flag, t_cmd *cmd, int *fd)
 {
-	*fd = 0;
 	*fd = cmd->std_out;
 	if (!flag)
 	{
@@ -34,7 +33,7 @@ void	ft_set_fd(int flag, t_cmd *cmd, int *fd)
 	}
 }
 
- int	ft_echo_return(int flag, int *fd, t_envp **env)
+int	ft_echo_return(int flag, int *fd, t_envp **env)
 {
 	ft_putchar_fd('\n', *fd);
 	if (*fd != STDOUT_FILENO && flag)

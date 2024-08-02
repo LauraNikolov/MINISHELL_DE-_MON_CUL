@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dispatch_builtin.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:17:27 by melmarti          #+#    #+#             */
-/*   Updated: 2024/08/02 16:49:00 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 18:04:20 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int	ft_dispatch_builtin(t_cmd *cmd, t_save_struct *tstruct, int flag)
 	if (!ft_strcmp(cmd->cmd[0], "echo"))
 		return (ft_echo(cmd, &tstruct->envp, flag));
 	else if (!ft_strcmp(cmd->cmd[0], "export"))
-		return (ft_export(cmd, &tstruct->envp, cmd->std_out, flag));
+		return (ft_export(cmd, &tstruct->envp, flag));
 	else if (!ft_strcmp(cmd->cmd[0], "exit"))
 		return (ft_exit(tstruct, &tstruct->envp));
 	else if (!ft_strcmp(cmd->cmd[0], "unset"))
 		return (ft_unset(cmd->cmd, &tstruct->envp, tstruct));
 	else if (!ft_strcmp(cmd->cmd[0], "env"))
-		return (ft_env(&tstruct->envp, cmd));
+		return (ft_env(&tstruct->envp, cmd, flag));
 	else if (!ft_strcmp(cmd->cmd[0], "pwd"))
 		return (ft_pwd(cmd->cmd, &tstruct->envp));
 	else if (!ft_strcmp(cmd->cmd[0], "cd"))

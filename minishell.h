@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 14:41:19 by lauranicolo       #+#    #+#             */
-/*   Updated: 2024/08/02 16:41:31 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 18:19:08 by melmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,16 +158,16 @@ int			ft_limiter(char *s1, char *s2);
 void		heredoc_parent(pid_t pid, int file);
 
 // BUILTINS
-int			ft_fork_export(t_envp **env, int fd);
+int			ft_fork_export(t_envp **env, int fd, int flag, t_cmd *node);
 void		ft_compare_var(t_envp **env, char *var);
 int			ft_handle_export_err(char *var);
 int			ft_dispatch_builtin(t_cmd *cmd, t_save_struct *tstruct, int flag);
-int			ft_export(t_cmd *cmd, t_envp **env, int fd, int flag);
+int			ft_export(t_cmd *cmd, t_envp **env, int flag);
 int			ft_unset(char **var, t_envp **env, t_save_struct *tstruct);
-int			ft_env(t_envp **envp, t_cmd *node);
+int			ft_env(t_envp **envp, t_cmd *node, int flag);
 int			ft_echo(t_cmd *cmd, t_envp **env, int flag);
 int			ft_exit(t_save_struct *tstruct, t_envp **envp);
-int			ft_print_envp(t_envp **envp, t_cmd *node);
+int			ft_print_envp(t_envp **envp, t_cmd *node, int flag);
 int			ft_pwd(char **cmd, t_envp **envp);
 int			ft_cd(t_save_struct *tstruct);
 int			ft_echo_return(int flag, int *fd, t_envp **env);
