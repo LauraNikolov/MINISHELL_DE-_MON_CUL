@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_parse.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lnicolof <lnicolof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:56:13 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/08/02 09:27:10 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 12:29:50 by lnicolof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,11 @@ void	destroy_tmp_file(t_cmd *cmd)
 			while (current_redir)
 			{
 				if (current_redir->type == R_HEREDOC)
+				{
 					unlink(current_redir->next->redir);
+					free(current_redir->next->redir);
+					current_redir->next->redir = NULL;
+				}
 				current_redir = current_redir->next->next;
 			}
 		}
@@ -60,31 +64,48 @@ void	destroy_tmp_file(t_cmd *cmd)
 	}
 }
 
-void	ft_exec(t_save_struct *tstruct, char ***envp)
+static void	ft_exec2(t_save_struct *t_struct, char ***envp)
+{
+	manage_heredoc(t_struct->cmd, t_struct);
+	if (g_exit_status != 2)
+		ft_exec_multi_cmds(t_struct, envp);
+	else
+	{
+		ft_return_code(ft_strdup("130"), &t_struct->envp);
+		destroy_tmp_file(t_struct->cmd);
+		g_exit_status = 0;
+		return ;
+	}
+	close_fds(t_struct->cmd);
+	destroy_tmp_file(t_struct->cmd);
+	recursive_free_ast(&t_struct->ast);
+}
+
+void	ft_exec(t_save_struct *t_struct, char ***envp)
 {
 	int	cmd_size;
 	int	return_value;
 
 	return_value = 0;
-	cmd_size = ft_nbr_of_cmd(tstruct->cmd);
+	cmd_size = ft_nbr_of_cmd(t_struct->cmd);
 	if (cmd_size == 1)
 	{
-		tstruct->cmd->std_in = 0;
-		tstruct->cmd->std_out = 1;
-		manage_heredoc(tstruct->cmd, tstruct);
-		if(g_exit_status != 5)
-			return_value = ft_execve_single_cmd(tstruct->cmd, envp, tstruct);
-		close_fds(tstruct->cmd);
-		ft_return_code(ft_itoa(return_value), &tstruct->envp);
-		destroy_tmp_file(tstruct->cmd);
+		t_struct->cmd->std_in = 0;
+		t_struct->cmd->std_out = 1;
+		manage_heredoc(t_struct->cmd, t_struct);
+		if (g_exit_status != 2)
+			return_value = ft_execve_single_cmd(t_struct->cmd, envp, t_struct);
+		else
+		{
+			ft_return_code(ft_strdup("130"), &t_struct->envp);
+			destroy_tmp_file(t_struct->cmd);
+			g_exit_status = 0;
+			return ;
+		}
+		close_fds(t_struct->cmd);
+		ft_return_code(ft_itoa(return_value), &t_struct->envp);
+		destroy_tmp_file(t_struct->cmd);
 	}
 	else
-	{
-		manage_heredoc(tstruct->cmd, tstruct);
-		if(g_exit_status != 5)
-			ft_exec_multi_cmds(tstruct, envp);
-		close_fds(tstruct->cmd);
-		destroy_tmp_file(tstruct->cmd);
-		recursive_free_ast(&tstruct->ast);
-	}
+		ft_exec2(t_struct, envp);
 }

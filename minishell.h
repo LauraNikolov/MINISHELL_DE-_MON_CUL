@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lnicolof <lnicolof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 14:41:19 by lauranicolo       #+#    #+#             */
-/*   Updated: 2024/08/02 09:30:56 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 12:07:55 by lnicolof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,8 @@ int			ft_pipe_recursive(t_ast *root, char ***envp, int return_value,
 				t_save_struct *tstruct);
 t_cmd		*get_last_cmd(t_ast *node);
 void		redir_error(char *str);
+int			ft_limiter(char *s1, char *s2);
+void		heredoc_parent(pid_t pid, int file);
 
 // BUILTINS
 int			ft_fork_export(t_envp **env);

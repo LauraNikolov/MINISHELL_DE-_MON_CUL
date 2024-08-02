@@ -3,33 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lnicolof <lnicolof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:39:53 by lnicolof          #+#    #+#             */
-/*   Updated: 2024/07/29 15:36:45 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:28:20 by lnicolof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_limiter(char *s1, char *s2)
+static int	while_heredoc(char **line, int file, char *limiter)
 {
-	int	i;
-	int	y;
-
-	i = 0;
-	y = 0;
-	while (s2[i])
+	while (1)
 	{
-		y = 0;
-		while (s2[i] == s1[y] && s1[y] && s2[i])
+		write(1, "here_doc>  ", 10);
+		*line = get_next_line(STDOUT_FILENO);
+		if (*line == NULL)
 		{
-			i++;
-			y++;
-			if (y == (int)ft_strlen(s1))
-				return (1);
+			write(STDOUT_FILENO, "\n", 1);
+			return (1);
 		}
-		i++;
+		if (ft_limiter(limiter, *line) == 1)
+			return (1);
+		write(file, *line, ft_strlen(*line) - 1);
+		write(file, "\n", 1);
+		free(*line);
 	}
 	return (0);
 }
@@ -38,67 +36,56 @@ char	*create_here_doc(char *str, char *limiter)
 {
 	int		file;
 	char	*line;
-	int pid;
+	int		pid;
 
-	pid = fork();
-	if(pid == 0)
-	{
-		ft_signal(2);
+	file = 0;
+	line = NULL;
+	ft_signal(2);
 	file = open(str, O_CREAT | O_RDWR | O_TRUNC, 0000644);
 	if (file == -1)
 		perror("open:");
-	while (1)
+	pid = fork();
+	if (pid == 0)
 	{
-		write(1, "here_doc>  ", 10);
-		line = get_next_line(STDOUT_FILENO);
-		if (line == NULL)
+		while (1)
 		{
-			write(STDOUT_FILENO, "\n", 1);
-			free(line);
-			break;
+			if (while_heredoc(&line, file, limiter) == 1)
+				break ;
 		}
-		if (ft_limiter(limiter, line) == 1)
-			break ;
-		write(file, line, ft_strlen(line) - 1);
-		write(file, "\n", 1);
 		free(line);
-	}
-	free(line);
-	close(file);
-	exit(0);
+		close(file);
+		exit(22);
 	}
 	else
-	{
-
-		ft_signal(3);
-		wait(0);
-		write(1, "\n", 1);
-		ft_signal(1);
-	}
+		heredoc_parent(pid, file);
 	return (str);
 }
 
-static void	handle_heredoc(t_redir *redir, int i, t_save_struct *tstruct)
+static void	handle_heredoc(t_redir *redir, int i, t_save_struct *t_struct)
 {
 	char	*heredocname;
+	char	*new_i;
 
-	heredocname = ft_strjoin(ft_itoa(i), "heredoctmp");
+	new_i = ft_itoa(i);
+	heredocname = ft_strjoin(new_i, "heredoctmp");
+	free(new_i);
 	if (redir->type == R_HEREDOC)
 	{
+		free(redir->next->redir);
 		redir->next->redir = create_here_doc(heredocname, redir->next->redir);
 		if (!redir->next->redir)
-			exit_error("heredoc failed\n", tstruct);
+			exit_error("heredoc failed\n", t_struct);
 	}
 }
 
-static void	process_redirections(t_cmd *cmd, int *i, t_save_struct *tstruct)
+static void	process_redirections(t_cmd *cmd, int *i, t_save_struct *t_struct)
 {
 	t_redir	*current_redir;
 
 	current_redir = cmd->redir;
 	while (current_redir && current_redir->type == R_HEREDOC)
 	{
-		handle_heredoc(current_redir, *i, tstruct);
+		handle_heredoc(current_redir, *i, t_struct);
 		if (current_redir->next)
 			current_redir = current_redir->next->next;
 		else
@@ -107,7 +94,7 @@ static void	process_redirections(t_cmd *cmd, int *i, t_save_struct *tstruct)
 	}
 }
 
-void	manage_heredoc(t_cmd *cmd, t_save_struct *tstruct)
+void	manage_heredoc(t_cmd *cmd, t_save_struct *t_struct)
 {
 	int		i;
 	t_cmd	*current;
@@ -117,7 +104,8 @@ void	manage_heredoc(t_cmd *cmd, t_save_struct *tstruct)
 	while (current)
 	{
 		if (current->redir)
-			process_redirections(current, &i, tstruct);
+			process_redirections(current, &i, t_struct);
 		current = current->next;
 	}
 }
+

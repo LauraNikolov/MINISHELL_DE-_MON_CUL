@@ -65,6 +65,7 @@ exec/exec_single_cmd.c \
 exec/exec_utils.c \
 exec/fork.c \
 exec/heredoc.c \
+exec/heredoc2.c \
 exec/leaf.c \
 exec/redir.c \
 exec/redir2.c \
