@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melmarti <melmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:40 by renard            #+#    #+#             */
-/*   Updated: 2024/07/29 15:39:13 by melmarti         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:04:15 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_check_obracket(t_cmd *node, t_envp **env, t_save_struct *tstruct)
 		if (ft_count_bracket(node, &error_cmd, env) != 0)
 		{
 			ft_putstr_cmd_fd("minishell: syntax error near unexpected token `",
-				2, &error_cmd, 0);
+				STDERR_FILENO, &error_cmd, 0);
 			return (ft_return_code(ft_strdup("2"), env));
 		}
 		*(node->bool_bracket) = 1;
@@ -59,7 +59,7 @@ int	ft_check_op(t_cmd *node, t_envp **env, t_save_struct *tstruct)
 	if (!node->prev || !node->next || node->next->type == AND
 		|| node->next->type == OR || node->next->type == PIPE)
 	{
-		ft_putstr_cmd_fd("minishell: syntax error near unexpected token `", 2,
+		ft_putstr_cmd_fd("minishell: syntax error near unexpected token `", STDERR_FILENO,
 			&node->cmd[0], 0);
 		return (ft_return_code(ft_strdup("2"), env));
 	}
@@ -78,7 +78,7 @@ int	ft_exec_func(t_cmd **cmd, t_envp **env, t_save_struct *tstruct)
 		if (curr->type == NO_TYPE)
 		{
 			ft_putstr_cmd_fd("minishell: syntax error near unexpected token `",
-				2, &curr->cmd[0], 0);
+				STDERR_FILENO, &curr->cmd[0], 0);
 			return (ft_return_code(ft_strdup("2"), env), -1);
 		}
 		if (!curr->cmd && curr->redir)

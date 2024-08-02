@@ -6,7 +6,7 @@
 /*   By: renard <renard@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 00:30:42 by renard            #+#    #+#             */
-/*   Updated: 2024/08/02 14:38:54 by renard           ###   ########.fr       */
+/*   Updated: 2024/08/02 15:05:36 by renard           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ int	ft_check_redir2(t_cmd *node, t_envp **env)
 				|| tmp->next->type != WORD || !tmp->next->redir[0]))
 		{
 			if (!(tmp->next->type >= 6 && tmp->next->type <= 9))
-				ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
+				ft_putstr_fd("syntax error near unexpected token `newline'\n",
+					STDERR_FILENO);
 			else
 			{
 				ft_putstr_fd("minishell: syntax error near unexpected token `",
-					2);
-				ft_putstr_fd(tmp->next->redir, 2);
+					STDERR_FILENO);
+				ft_putstr_fd(tmp->next->redir, STDERR_FILENO);
 			}
 			return (ft_return_code(ft_strdup("2"), env), -1);
 		}
@@ -49,13 +50,13 @@ int	ft_check_redir(t_cmd *node, t_envp **env)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(tmp->next->redir, 2);
-		ft_putstr_fd(": ambiguous redirect\n", 2);
+		ft_putstr_fd(": ambiguous redirect\n", STDERR_FILENO);
 		return (ft_return_code(ft_strdup("1"), env), -1);
 	}
 	if (!tmp->next || !tmp->next->redir[0])
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n",
-			2);
+			STDERR_FILENO);
 		return (ft_return_code(ft_strdup("2"), env), -1);
 	}
 	ft_check_redir2(node, env);
@@ -66,20 +67,20 @@ int	ft_check_word2(t_cmd *node, t_envp **env)
 {
 	if (node->next->type == O_BRACKET)
 	{
-		ft_putstr_cmd_fd("minishell: syntax error near unexpected token `", 2,
-			&node->next->next->cmd[0], 0);
+		ft_putstr_cmd_fd("minishell: syntax error near unexpected token `",
+			STDERR_FILENO, &node->next->next->cmd[0], 0);
 		return (ft_return_code(ft_strdup("2"), env));
 	}
 	if (node->next->type == O_BRACKET && !node->cmd[1])
 	{
-		ft_putstr_cmd_fd("minishell: syntax error near unexpected token `", 2,
-			&node->next->next->cmd[0], 0);
+		ft_putstr_cmd_fd("minishell: syntax error near unexpected token `",
+			STDERR_FILENO, &node->next->next->cmd[0], 0);
 		return (ft_return_code(ft_strdup("2"), env));
 	}
 	else if (node->next->type == O_BRACKET && node->cmd[1])
 	{
-		ft_putstr_cmd_fd("minishell: syntax error near unexpected token `", 2,
-			&node->next->next->cmd[0], 0);
+		ft_putstr_cmd_fd("minishell: syntax error near unexpected token `",
+			STDERR_FILENO, &node->next->next->cmd[0], 0);
 		return (ft_return_code(ft_strdup("2"), env));
 	}
 	return (0);
@@ -123,7 +124,7 @@ int	ft_check_cbracket(t_cmd *node, t_envp **env, t_save_struct *tstruct)
 		if (curr->prev == NULL)
 		{
 			ft_putstr_cmd_fd("minishell: syntax error near unexpected token `",
-				2, &node->next->cmd[0], 0);
+				STDERR_FILENO, &node->next->cmd[0], 0);
 			return (ft_return_code(ft_strdup("2"), env));
 		}
 		if (curr->prev->type == O_BRACKET)
